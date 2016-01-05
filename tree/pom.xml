@@ -10,7 +10,7 @@
     <description>Tree structure practise by Rugal</description>
     <parent>
         <groupId>ga.rugal</groupId>
-        <artifactId>study</artifactId>
+        <artifactId>algorithm</artifactId>
         <version>0.1</version>
     </parent>
     <dependencies>    
