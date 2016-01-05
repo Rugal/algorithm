@@ -20,6 +20,7 @@
     </properties>
     <modules>
         <module>tree</module>
+        <module>dp</module>
     </modules>
     <dependencies>
         <!-- Logging start -->
