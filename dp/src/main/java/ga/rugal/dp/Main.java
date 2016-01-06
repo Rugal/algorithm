@@ -72,6 +72,14 @@ public class Main
         return length[first.length][second.length];
     }
 
+    /**
+     * http://www.geeksforgeeks.org/dynamic-programming-set-5-edit-distance/
+     *
+     * @param first
+     * @param second
+     *
+     * @return
+     */
     public int editDist(char[] first, char[] second)
     {
         // Create a table to store results of subproblems
@@ -109,5 +117,44 @@ public class Main
             }
         }
         return dp[first.length][second.length];
+    }
+
+    /**
+     * http://www.geeksforgeeks.org/dynamic-programming-set-6-min-cost-path/
+     *
+     *
+     * @param cost
+     *
+     * @return
+     */
+    public int minCostPath(int[][] cost)
+    {
+        int column = cost[0].length;
+        int row = cost.length;
+        int[][] total = new int[row][column];
+        total[0][0] = cost[0][0];
+        for (int i = 1; i < row; i++)
+        {
+            total[i][0] = cost[i][0] + total[i - 1][0];
+        }
+        for (int i = 1; i < column; i++)
+        {
+            total[0][i] = cost[0][i] + total[0][i - 1];
+        }
+        for (int i = 1; i < row; i++)
+        {
+            for (int j = 1; j < column; j++)
+            {
+                total[i][j] = cost[i][j] + this.min(total[i - 1][j],
+                                                    total[i - 1][j - 1],
+                                                    total[i][j - 1]);
+            }
+        }
+        return total[row - 1][column - 1];
+    }
+
+    private int min(int a, int b, int c)
+    {
+        return Math.min(Math.min(a, b), c);
     }
 }

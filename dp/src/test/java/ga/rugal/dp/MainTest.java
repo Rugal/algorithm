@@ -3,6 +3,7 @@ package ga.rugal.dp;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -32,7 +33,7 @@ public class MainTest
      * Test of longestIncreaseSequence method, of class Main.
      */
     @Test
-//    @Ignore
+    @Ignore
     public void testLongestIncreaseSequence()
     {
         System.out.println("Longest Increase Sequence");
@@ -46,7 +47,7 @@ public class MainTest
     }
 
     @Test
-//    @Ignore
+    @Ignore
     public void testLongestCommonSubsequence()
     {
         System.out.println("Longest Common Subsequence");
@@ -58,6 +59,7 @@ public class MainTest
     }
 
     @Test
+    @Ignore
     public void testEditDistance()
     {
         System.out.println("Edit Distance");
@@ -65,6 +67,27 @@ public class MainTest
         String second = "abcdeg";
         int expResult = 1;
         int result = instance.editDist(first.toCharArray(), second.toCharArray());
+        Assert.assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testMinCostPath()
+    {
+        System.out.println("Min Cost Path");
+        int[][] cost = new int[][]
+        {
+            {
+                1, 0, 0
+            },
+            {
+                6, 3, 0
+            },
+            {
+                3, 3, 3
+            }
+        };
+        int expResult = 4;
+        int result = instance.minCostPath(cost);
         Assert.assertEquals(expResult, result);
     }
 }
