@@ -2,7 +2,7 @@ package ga.rugal.dp;
 
 /**
  *
- * @author Administrator
+ * @author Rugal Bernstein
  */
 public class Main
 {
@@ -17,7 +17,10 @@ public class Main
     public int longestIncreaseSequence(int[] data)
     {
         int[] length = new int[data.length];
-        for (int i = 0; i < length.length; length[i++] = 1);
+        for (int i = 0; i < length.length; i++)
+        {
+            length[i] = 1;
+        }
         for (int i = 1; i < data.length; i++)
         {
             for (int j = 0; j < i; j++)
@@ -153,6 +156,15 @@ public class Main
         return total[row - 1][column - 1];
     }
 
+    /**
+     * Minimum of three
+     *
+     * @param a
+     * @param b
+     * @param c
+     *
+     * @return
+     */
     private int min(int a, int b, int c)
     {
         return Math.min(Math.min(a, b), c);
