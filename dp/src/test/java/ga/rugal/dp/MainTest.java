@@ -3,6 +3,7 @@ package ga.rugal.dp;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -32,7 +33,7 @@ public class MainTest
      * Test of longestIncreaseSequence method, of class Main.
      */
     @Test
-//    @Ignore
+    @Ignore
     public void testLongestIncreaseSequence()
     {
         System.out.println("Longest Increase Sequence");
@@ -46,7 +47,7 @@ public class MainTest
     }
 
     @Test
-//    @Ignore
+    @Ignore
     public void testLongestCommonSubsequence()
     {
         System.out.println("Longest Common Subsequence");
@@ -58,7 +59,7 @@ public class MainTest
     }
 
     @Test
-//    @Ignore
+    @Ignore
     public void testEditDistance()
     {
         System.out.println("Edit Distance");
@@ -70,7 +71,7 @@ public class MainTest
     }
 
     @Test
-//    @Ignore
+    @Ignore
     public void testMinCostPath()
     {
         System.out.println("Min Cost Path");
@@ -92,6 +93,7 @@ public class MainTest
     }
 
     @Test
+    @Ignore
     public void testMinCoins()
     {
         System.out.println("minimum number of coins");
@@ -101,6 +103,19 @@ public class MainTest
         };
         int expResult = 1;
         int result = instance.minCoins(coin, 4);
+        Assert.assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testCountCoins()
+    {
+        System.out.println("Coin Change");
+        int[] coin = new int[]
+        {
+            1, 2, 3
+        };
+        int expResult = 4;
+        int result = instance.count(coin, 4);
         Assert.assertEquals(expResult, result);
     }
 }

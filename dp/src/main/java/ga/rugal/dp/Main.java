@@ -8,6 +8,20 @@ public class Main
 {
 
     /**
+     * Minimum of three
+     *
+     * @param a
+     * @param b
+     * @param c
+     *
+     * @return
+     */
+    private int min(int a, int b, int c)
+    {
+        return Math.min(Math.min(a, b), c);
+    }
+
+    /**
      * http://www.geeksforgeeks.org/dynamic-programming-set-3-longest-increasing-subsequence/
      *
      * @param data
@@ -112,8 +126,8 @@ public class Main
                 } else
                 {
                     // If last character are different, consider all possibilities and find minimum
-                    dp[i][j] = 1 + Math.min(Math.min(dp[i][j - 1],// Insert
-                                                     dp[i - 1][j]),// Remove
+                    dp[i][j] = 1 + this.min(dp[i][j - 1],// Insert
+                                            dp[i - 1][j],// Remove
                                             dp[i - 1][j - 1]); // Replace
                 }
 
@@ -154,20 +168,6 @@ public class Main
             }
         }
         return total[row - 1][column - 1];
-    }
-
-    /**
-     * Minimum of three
-     *
-     * @param a
-     * @param b
-     * @param c
-     *
-     * @return
-     */
-    private int min(int a, int b, int c)
-    {
-        return Math.min(Math.min(a, b), c);
     }
 
     /**
@@ -214,5 +214,42 @@ public class Main
             }
         }
         return table[V];
+    }
+
+    /**
+     * http://www.geeksforgeeks.org/dynamic-programming-set-7-coin-change/
+     *
+     * @param data
+     * @param value
+     *
+     * @return
+     */
+    public int count(int[] data, int value)
+    {
+        // We need n+1 rows as the table is consturcted in bottom up manner using
+        // the base case 0 value case (n = 0)
+        int[][] table = new int[value + 1][data.length];
+
+        // Fill the entries for 0 value case (n = 0)
+        for (int i = 0; i < data.length; i++)
+        {
+            table[0][i] = 1;
+        }
+        // Fill rest of the table enteries in bottom up manner
+        for (int i = 1; i < value + 1; i++)
+        {
+            for (int j = 0; j < data.length; j++)
+            {
+                // Count of solutions including S[j]
+                int x = (i - data[j] >= 0) ? table[i - data[j]][j] : 0;
+
+                // Count of solutions excluding S[j]
+                int y = (j >= 1) ? table[i][j - 1] : 0;
+
+                // total count
+                table[i][j] = x + y;
+            }
+        }
+        return table[value][data.length - 1];
     }
 }
