@@ -252,4 +252,5 @@ public class Main
         }
         return table[value][data.length - 1];
     }
+
 }
