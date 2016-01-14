@@ -4,7 +4,7 @@ import java.util.Stack;
 
 /**
  *
- * @author Administrator
+ * @author Rugal Bernstein
  */
 public class RemoveDuplicateLetters
 {

@@ -2,7 +2,7 @@ package ga.rugal.leetcode;
 
 /**
  *
- * @author Administrator
+ * @author Rugal Bernstein
  */
 public class MoveZeroes
 {
