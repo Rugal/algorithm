@@ -12,7 +12,7 @@ import org.junit.Test;
 public class ParentheseBalanceTest
 {
 
-    private ParentheseBalance instance = new ParentheseBalance();
+    private final ParentheseBalance instance = new ParentheseBalance();
 
     private final String[] data = new String[]
     {
