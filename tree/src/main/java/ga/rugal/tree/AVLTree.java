@@ -114,7 +114,7 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V>
     private TreeNode<K, V> insert(TreeNode<K, V> node, K key, V value)
     {
         /* 1.  Perform the normal BST rotation */
-        if (node == null)
+        if (null == node)
         {
             this.size++;
             return new TreeNode<>(key, value);

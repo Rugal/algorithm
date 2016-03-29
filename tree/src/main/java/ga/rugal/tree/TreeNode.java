@@ -15,6 +15,8 @@ public class TreeNode<K extends Comparable, V> implements Comparable<TreeNode>
 
     int height = 0;
 
+    boolean black = false;
+
     TreeNode<K, V> left;
 
     TreeNode<K, V> right;
@@ -23,6 +25,16 @@ public class TreeNode<K extends Comparable, V> implements Comparable<TreeNode>
     {
         this.key = key;
         this.value = value;
+    }
+
+    public boolean isBlack()
+    {
+        return black;
+    }
+
+    public void setBlack(boolean black)
+    {
+        this.black = black;
     }
 
     public void setKey(K key)
