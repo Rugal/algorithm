@@ -83,12 +83,7 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V>
      */
     private int getBalance(TreeNode node)
     {
-        int h = 0;
-        if (null != node)
-        {
-            h = this.height(node.left) - this.height(node.right);
-        }
-        return h;
+        return null != node ? this.height(node.left) - this.height(node.right) : 0;
     }
 
     /**
@@ -98,18 +93,13 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V>
      * The depth of a node is the number of edges from the node to the tree's root node. <BR>
      * A root node will have a depth of 0.
      *
-     * @param node return 0 height if given node is null.
+     * @param node return -1 height if given node is null.
      *
      * @return
      */
     private int height(TreeNode node)
     {
-        int h = -1;
-        if (null != node)
-        {
-            h = node.height;
-        }
-        return h;
+        return null != node ? node.height : -1;
     }
 
     /**
@@ -132,6 +122,7 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V>
         int result = key.compareTo(node.getKey());
         if (0 == result)
         {
+            //replace an existed value, no need for structure re-adjust
             node.setValue(value);
             return node;
         }
@@ -142,7 +133,7 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V>
         {
             node.right = insert(node.right, key, value);
         }
-        /* 2. Update height of this ancestor node */
+        /* 2. Update height of this ancestor node recursively */
         node.height = Math.max(height(node.left), height(node.right)) + 1;
 
         /* 3. Get the balance factor of this ancestor node to check whether
@@ -385,13 +376,13 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V>
         {
             TreeNode<K, V> node = stack.pop();
             list.add(node.getKey());
-            if (null != node.left)
-            {
-                stack.push(node.left);
-            }
             if (null != node.right)
             {
                 stack.push(node.right);
+            }
+            if (null != node.left)
+            {
+                stack.push(node.left);
             }
         }
         return list;
@@ -402,9 +393,9 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V>
     {
         StringBuilder sb = new StringBuilder();
         preOrder().stream().forEach((k) ->
-                {
-                    sb.append(k).append(" ");
-                });
+            {
+                sb.append(k).append(" ");
+            });
         return sb.toString();
     }
 
