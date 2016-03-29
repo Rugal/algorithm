@@ -1,92 +1,28 @@
 package ga.rugal.tree;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.awt.*;
+import javax.swing.*;
 
 /**
- * http://www.geeksforgeeks.org/red-black-tree-set-1-introduction-2/
+ * Red black tree with a java.Map like interface. Implements Icon so that it can be easily drawn.
+ * Insert, contains, and get are O(log n) worst case time. It is possible to write a constant space,
+ * linear time iterator for this tree that produces the elements in sorted order.
  *
- * @author Rugal Bernstein
- * @param <K>
- * @param <V>
+ * <p>
+ * Based on Okasaki, Alternatives to Two Classic Data Structures, SIGCSE 2005
+ *
+ * <P>
+ * Morgan McGuire
+ * <br>morgan@cs.williams.edu
+ *
+ * @param <Key>
+ * @param <Value>
  */
-public class RBTree<K extends Comparable, V> implements Tree<K, V>
+public class RBTree<Key extends Comparable<Key>, Value> implements Icon, Tree<Key, Value>
 {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RBTree.class.getName());
-
-    private int size = 0;
-
-    private TreeNode<K, V> root = null;
-
-    private boolean isBlack(TreeNode<K, V> node)
-    {
-        return node == null ? true : node.black;
-    }
-
-    /**
-     * Recursive version of AVL tree insertion.
-     *
-     * @param node  the target node to be add on.
-     * @param key
-     * @param value
-     *
-     * @return
-     */
-    private TreeNode<K, V> insert(TreeNode<K, V> node, K key, V value)
-    {
-        /* 1.  Perform the normal BST rotation */
-        if (null == node)
-        {
-            this.size++;
-            return new TreeNode<>(key, value);
-        }
-        int result = key.compareTo(node.getKey());
-        if (0 == result)
-        {
-            //replace an existed value, no need for structure re-adjust
-            node.setValue(value);
-            return node;
-        }
-        if (result < 0)
-        {
-            node.left = insert(node.left, key, value);
-        } else
-        {
-            node.right = insert(node.right, key, value);
-        }
-
-        // fix-up any right-leaning links
-        if (!isBlack(node.right) && isBlack(node.left))
-        {
-            node = leftRotate(node);
-        }
-        if (!isBlack(node.left) && !isBlack(node.left.left))
-        {
-            node = rightRotate(node);
-        }
-        if (!isBlack(node.left) && !isBlack(node.right))
-        {
-            flipColors(node);
-        }
-        return node;
-    }
-
     @Override
-    public void put(K key, V value)
-    {
-        root = this.insert(root, key, value);
-        this.root.setBlack(this.size == 1);
-    }
-
-    @Override
-    public V get(K key)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean remove(K key)
+    public boolean remove(Key key)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -94,17 +30,11 @@ public class RBTree<K extends Comparable, V> implements Tree<K, V>
     @Override
     public int size()
     {
-        return this.size;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public boolean isEmpty()
-    {
-        return this.size == 0;
-    }
-
-    @Override
-    public boolean containsKey(K key)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -115,76 +45,335 @@ public class RBTree<K extends Comparable, V> implements Tree<K, V>
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void flipColors(TreeNode h)
+    /**
+     * Node labels.
+     */
+    private enum Color
     {
-        // h must have opposite color of its two children
-        // assert (h != null) && (h.left != null) && (h.right != null);
-        // assert (!isRed(h) &&  isRed(h.left) &&  isRed(h.right))
-        //    || (isRed(h)  && !isRed(h.left) && !isRed(h.right));
-        h.black = !h.black;
-        h.left.black = !h.left.black;
-        h.right.black = !h.right.black;
+        RED, BLACK
+    };
+
+    /**
+     * Value returned from a comparator
+     */
+    private static final int LESS = -1;
+
+    /**
+     * Value returned from a comparator
+     */
+    private static final int EQUAL = 0;
+
+    /**
+     * Value returned from a comparator
+     */
+    private static final int GREATER = +1;
+
+    /**
+     * NULL when the tree is empty
+     */
+    private Node root;
+
+    /**
+     * All leaf nodes are black empty nodes that share this one instance.
+     */
+    final private Node EMPTY = new Empty();
+
+    public RBTree()
+    {
+        root = EMPTY;
+    }
+
+    @Override
+    public void put(Key key, Value value)
+    {
+        root = root.add(key, value);
+        root.color = Color.BLACK;
     }
 
     /**
-     * Rotate a tree to right. The given node becomes right subtree of its origin left tree.<BR>
-     * The origin left tree node becomes parent of given node.<BR>
-     * The origin right tree of origin left tree of given becomes new left tree of given tree.
-     *
-     * @param node
-     *
-     * @return The new parent node that hold given node.
+     * Returns null if not found.
      */
-    private TreeNode rightRotate(TreeNode node)
+    @Override
+    public Value get(Key key)
     {
-        TreeNode newParent = node.left;
-        // Perform rotation
-        node.left = newParent.right;
-        newParent.right = node;
-        // Update heights
-        node.height = Math.max(height(node.left), height(node.right)) + 1;
-        newParent.height = Math.max(height(newParent.left), height(newParent.right)) + 1;
-        // Return new root
-        return newParent;
+        Node n = root.getNode(key);
+        if (n != null)
+        {
+            return n.value;
+        } else
+        {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean containsKey(Key key)
+    {
+        return root.getNode(key) != null;
+    }
+
+    private class Node
+    {
+
+        public Key key;
+
+        public Value value;
+
+        public Color color;
+
+        public Node left;
+
+        public Node right;
+
+        /**
+         * Used by Empty
+         */
+        protected Node()
+        {
+            assert EMPTY == null;
+        }
+
+        /**
+         * Nodes always begin red
+         */
+        public Node(Key k, Value v)
+        {
+            key = k;
+            value = v;
+            color = Color.RED;
+            left = EMPTY;
+            right = EMPTY;
+        }
+
+        private boolean isRed()
+        {
+            return color == Color.RED;
+        }
+
+        public Node add(Key k, Value v)
+        {
+            switch (k.compareTo(key))
+            {
+                case LESS:
+                    left = left.add(k, v);
+                    break;
+
+                case GREATER:
+                    right = right.add(k, v);
+                    break;
+
+                case EQUAL:
+                    // key is already in the tree; replace the value
+                    value = v;
+                    return this;
+            }
+
+            // Check for two red nodes in a row: Red child and red grandchild
+            if (left.isRed() && left.left.isRed())
+            {
+
+                //       z           y
+                //      / \         / \
+                //     y   D  ==>  /   \
+                //    / \         x     z
+                //   x   C       / \   / \
+                //  / \         A   B C   D
+                // A   B
+                return balance(left.left, left, this, // x,y,z
+                               left.left.right, left.right);       // B,C
+
+            } else
+            {
+                if (left.isRed() && left.right.isRed())
+                {
+
+                    //       z           y
+                    //      / \         / \
+                    //     x   D  ==>  /   \
+                    //    / \         x     z
+                    //   A   y       / \   / \
+                    //      / \     A   B C   D
+                    //     B   C
+                    return balance(left, left.right, this, // x,y,z
+                                   left.right.left, left.right.right); // B,C
+
+                } else
+                {
+                    if (right.isRed() && right.left.isRed())
+                    {
+
+                        //     x             y
+                        //    / \           / \
+                        //   A   z    ==>  /   \
+                        //      / \       x     z
+                        //     y   D     / \   / \
+                        //    / \       A   B C   D
+                        //   B   C
+                        return balance(this, right.left, right, // x,y,z
+                                       right.left.left, right.left.right); // B,C
+
+                    } else
+                    {
+                        if (right.isRed() && right.right.isRed())
+                        {
+                            //   x               y
+                            //  / \             / \
+                            // A   y      ==>  /   \
+                            //    / \         x     z
+                            //   B   z       / \   / \
+                            //      / \     A   B C   D
+                            //     C   D
+                            return balance(this, right, right.right, // x,y,z
+                                           right.left, right.right.left);      // B,C
+                        }
+                    }
+                }
+            }
+
+            return this;
+        }
+
+        /**
+         * Returns the node for this key, or null.
+         */
+        public Node getNode(Key k)
+        {
+            switch (k.compareTo(key))
+            {
+                case LESS:
+                    return left.getNode(k);
+
+                case GREATER:
+                    return right.getNode(k);
+
+                default: // EQUAL
+                    return this;
+            }
+        }
+
+        public void paint(Graphics g, int x, int y, int separation)
+        {
+            final int R = 20;
+
+            if (left != null)
+            {
+                int xx = x - separation;
+                int yy = y + R * 3;
+                g.setColor(java.awt.Color.BLACK);
+                g.drawLine(x, y, xx, yy);
+                left.paint(g, xx, yy, separation / 2);
+            }
+
+            if (right != null)
+            {
+                int xx = x + separation;
+                int yy = y + R * 3;
+                g.setColor(java.awt.Color.BLACK);
+                g.drawLine(x, y, xx, yy);
+                right.paint(g, xx, yy, separation / 2);
+            }
+
+            if (color == Color.RED)
+            {
+                g.setColor(java.awt.Color.RED);
+            } else
+            {
+                g.setColor(java.awt.Color.BLACK);
+            }
+            g.fillOval(x - R, y - R, 2 * R, 2 * R);
+
+            g.setColor(java.awt.Color.WHITE);
+            drawCenteredString(g, "" + key, x, y);
+        }
     }
 
     /**
-     * Rotate a tree to left. The given node becomes left subtree of its origin right tree.<BR>
-     * The origin right tree node becomes parent of given node.<BR>
-     * The origin left tree of origin right tree of given becomes new right tree of given tree.
-     *
-     * @param node
-     *
-     * @return The new parent node that hold given node.
+     * The empty node used at leaves
      */
-    private TreeNode leftRotate(TreeNode node)
+    private class Empty extends Node
     {
-        TreeNode newParent = node.right;
-        TreeNode originLeft = newParent.left;
-        // Perform rotation
-        newParent.left = node;
-        node.right = originLeft;
-        //  Update heights
-        node.height = Math.max(height(node.left), height(node.right)) + 1;
-        newParent.height = Math.max(height(newParent.left), height(newParent.right)) + 1;
-        // Return new root
-        return newParent;
+
+        public Empty()
+        {
+            color = Color.BLACK;
+            assert EMPTY == null : "Should only make one empty node instance!";
+        }
+
+        /**
+         * Always make a new node, since this one is empty
+         */
+        @Override
+        public Node add(Key k, Value v)
+        {
+            return new Node(k, v);
+        }
+
+        @Override
+        public Node getNode(Key key)
+        {
+            return null;
+        }
     }
 
     /**
-     * Get the height of a node.<BR>
-     * The height of a node is the number of edges on the longest path from the node to a leaf. <BR>
-     * A leaf node will have a height of 0.<BR>
-     * The depth of a node is the number of edges from the node to the tree's root node. <BR>
-     * A root node will have a depth of 0.
+     * Rearrange/recolor the tree as
      *
-     * @param node return -1 height if given node is null.
-     *
-     * @return
+     * <pre>
+     *      y      <== red
+     *     / \
+     *    /   \
+     *   x     z   <== both black
+     *  / \   / \
+     * A   B C   D
+     * </pre> Note: A and D are not passed in because already in the right place
      */
-    private int height(TreeNode node)
+    private Node balance(Node x, Node y, Node z, Node B, Node C)
     {
-        return null != node ? node.height : -1;
+
+        x.right = B;
+        y.left = x;
+        y.right = z;
+        z.left = C;
+        x.color = Color.BLACK;
+        y.color = Color.RED;
+        z.color = Color.BLACK;
+        return y;
     }
 
+    //////////////////////////////////////////////////////////////
+    // Rendering code
+    @Override
+    public int getIconWidth()
+    {
+        return 800;
+    }
+
+    @Override
+    public int getIconHeight()
+    {
+        return 600;
+    }
+
+    @Override
+    public void paintIcon(Component c, Graphics g, int x, int y)
+    {
+        g.translate(x, y);
+
+        Rectangle r = c.getBounds();
+        if (root != null)
+        {
+            root.paint(g, r.width / 2, 40, r.width / 5);
+        }
+
+        g.translate(-x, -y);
+    }
+
+    private void drawCenteredString(Graphics g, String s, int x, int y)
+    {
+        FontMetrics m = g.getFontMetrics();
+
+        // Center the label
+        java.awt.geom.Rectangle2D bounds = m.getStringBounds(s, g);
+        g.drawString(s, (int) (x - bounds.getWidth() / 2), (int) (y - bounds.getMinY() - bounds.getHeight() / 2));
+    }
 }
