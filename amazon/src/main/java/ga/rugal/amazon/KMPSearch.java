@@ -8,6 +8,13 @@ package ga.rugal.amazon;
 public class KMPSearch
 {
 
+    /**
+     * c o c a c o l a <BR> 0 0 1 0 1 2 0 0
+     *
+     * @param pattern
+     *
+     * @return
+     */
     int[] analyze(String pattern)
     {
         int[] prefix = new int[pattern.length()];
@@ -17,10 +24,10 @@ public class KMPSearch
         {
             if (pattern.charAt(i) == pattern.charAt(len))
             {
-                prefix[i] = ++len;
-                i++;
-            } else // (pat[i] != pat[len])
+                prefix[i++] = ++len;
+            } else
             {
+                // (pat[i] != pat[len])
                 if (len != 0)
                 {
                     // This is tricky. Consider the example: AAACAAAA and i = 7.
@@ -28,8 +35,7 @@ public class KMPSearch
                     // Also, note that we do not increment i here
                 } else
                 {
-                    prefix[i] = 0;
-                    i++;
+                    prefix[i++] = 0;
                 }
             }
         }
@@ -38,26 +44,31 @@ public class KMPSearch
 
     public int search(String source, String pattern)
     {
-        int i = 0, m = 0, prefix[] = analyze(pattern);
-        while (m + i < source.length())
+        int[] prefix = analyze(pattern);
+        for (int i = 0, indexOfPattern = 0; i < source.length();)
         {
-            if (pattern.charAt(i) == source.charAt(m + i))
+            if (pattern.charAt(indexOfPattern) == source.charAt(i))
             {
-                if (i != pattern.length() - 1)
-                {
-                    i++;
-                }
-                return m;
+                indexOfPattern++;
+                i++;
+            }
+            //matched
+            if (indexOfPattern == pattern.length())
+            {
+                return i - indexOfPattern;
+//                indexOfPattern = prefix[indexOfPattern - 1];
             } else
-            {
-                if (prefix[i] > -1)
+            {// mismatch after j matches
+                if (i < source.length() && pattern.charAt(indexOfPattern) != source.charAt(i))
                 {
-                    m = m + i - prefix[i];
-                    i = prefix[i];
-                } else
-                {
-                    i = 0;
-                    m++;
+                    // Do not match lps[0..lps[j-1]] characters, they will match anyway
+                    if (indexOfPattern != 0)
+                    {
+                        indexOfPattern = prefix[indexOfPattern - 1];
+                    } else
+                    {
+                        i++;
+                    }
                 }
             }
         }
