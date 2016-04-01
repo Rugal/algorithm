@@ -12,39 +12,44 @@ public class RBTree<Key extends Comparable<Key>, Value> implements Tree<Key, Val
         return node == null ? false : node.red;
     }
 
-    private TreeNode<Key, Value> insert(TreeNode<Key, Value> h, Key key, Value value)
+    private boolean isBlack(TreeNode node)
     {
-        if (null == h)
+        return !this.isRed(node);
+    }
+
+    private TreeNode<Key, Value> insert(TreeNode<Key, Value> node, Key key, Value value)
+    {
+        if (null == node)
         {
             this.size++;
             return new TreeNode<>(key, value);
         }
-        int result = key.compareTo(h.getKey());
+        int result = key.compareTo(node.getKey());
         if (0 == result)
         {
-            h.setValue(value);
-            return h;
+            node.setValue(value);
+            return node;
         }
         if (result < 0)
         {
-            h.left = this.insert(h.left, key, value);
+            node.left = this.insert(node.left, key, value);
         } else
         {
-            h.right = this.insert(h.right, key, value);
+            node.right = this.insert(node.right, key, value);
         }
-        if (isRed(h.right) && !isRed(h.left))
+        if (isRed(node.right) && isBlack(node.left))
         {
-            h = rotateLeft(h);
+            node = rotateLeft(node);
         }
-        if (isRed(h.left) && isRed(h.left.left))
+        if (isRed(node.left) && isRed(node.left.left))
         {
-            h = rotateRight(h);
+            node = rotateRight(node);
         }
-        if (isRed(h.left) && isRed(h.right))
+        if (isRed(node.left) && isRed(node.right))
         {
-            flipColors(h);
+            flipColors(node);
         }
-        return h;
+        return node;
     }
 
     /**
