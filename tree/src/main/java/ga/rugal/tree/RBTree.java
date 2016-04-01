@@ -16,6 +16,7 @@ public class RBTree<Key extends Comparable<Key>, Value> implements Tree<Key, Val
     {
         if (null == h)
         {
+            this.size++;
             return new TreeNode<>(key, value);
         }
         int result = key.compareTo(h.getKey());
@@ -108,7 +109,20 @@ public class RBTree<Key extends Comparable<Key>, Value> implements Tree<Key, Val
     @Override
     public Value get(Key key)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (null == root)
+        {
+            return null;
+        }
+        for (TreeNode<Key, Value> node = root; null != node;)
+        {
+            int result = key.compareTo(node.getKey());
+            if (0 == result)
+            {
+                return node.getValue();
+            }
+            node = (result < 0) ? node.left : node.right;
+        }
+        return null;
     }
 
     @Override
@@ -120,25 +134,26 @@ public class RBTree<Key extends Comparable<Key>, Value> implements Tree<Key, Val
     @Override
     public int size()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.size;
     }
 
     @Override
     public boolean isEmpty()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.size == 0;
     }
 
     @Override
     public boolean containsKey(Key key)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.get(key) != null;
     }
 
     @Override
     public void clear()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.root = null;
+        this.size = 0;
     }
 
 }
