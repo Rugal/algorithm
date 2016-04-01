@@ -45,21 +45,21 @@ public class KMPSearch
     public int search(String source, String pattern)
     {
         int[] prefix = analyze(pattern);
-        for (int i = 0, indexOfPattern = 0; i < source.length();)
+        for (int current = 0, indexOfPattern = 0; current < source.length();)
         {
-            if (pattern.charAt(indexOfPattern) == source.charAt(i))
+            if (pattern.charAt(indexOfPattern) == source.charAt(current))
             {
                 indexOfPattern++;
-                i++;
+                current++;
             }
             //matched
             if (indexOfPattern == pattern.length())
             {
-                return i - indexOfPattern;
+                return current - indexOfPattern;
 //                indexOfPattern = prefix[indexOfPattern - 1];
             } else
             {// mismatch after j matches
-                if (i < source.length() && pattern.charAt(indexOfPattern) != source.charAt(i))
+                if (current < source.length() && pattern.charAt(indexOfPattern) != source.charAt(current))
                 {
                     // Do not match lps[0..lps[j-1]] characters, they will match anyway
                     if (indexOfPattern != 0)
@@ -67,7 +67,7 @@ public class KMPSearch
                         indexOfPattern = prefix[indexOfPattern - 1];
                     } else
                     {
-                        i++;
+                        current++;
                     }
                 }
             }
