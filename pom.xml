@@ -15,7 +15,7 @@
   </parent>
   <properties>
     <!-- test switch -->
-    <skip.surefire.tests>true</skip.surefire.tests>
+    <skip.surefire.tests>false</skip.surefire.tests>
     <skip.failsafe.tests>true</skip.failsafe.tests>
     <!-- versioning -->
     <java.version>1.8</java.version>
@@ -115,7 +115,6 @@
           <xmlOutput>true</xmlOutput>
           <failOnError>true</failOnError>
           <skip>false</skip>
-          <excludeFilterFile>configuration/findbugs-exclude.xml</excludeFilterFile>
         </configuration>
         <executions>
           <execution>
@@ -166,7 +165,7 @@
           <skipTests>${skip.surefire.tests}</skipTests>
           <encoding>${project.build.sourceEncoding}</encoding>
           <trimStackTrace>false</trimStackTrace>
-          <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true ${surefireArgLine}</argLine>
+          <argLine>${surefireArgLine}</argLine>
           <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
           <forkCount>2</forkCount>
         </configuration>
@@ -191,7 +190,7 @@
           </includes>
           <skipTests>${skip.failsafe.tests}</skipTests>
           <trimStackTrace>false</trimStackTrace>
-          <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true ${failsafeArgLine}</argLine>
+          <argLine>${failsafeArgLine}</argLine>
           <reportsDirectory>${project.build.directory}/failsafe-reports</reportsDirectory>
         </configuration>
         <executions>

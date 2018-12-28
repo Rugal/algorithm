@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="ERROR">
-    <Properties>
-        <Property name="filename">target/app.log</Property>
-    </Properties>
-    <Appenders>
-        <Console name="STDOUT">
-            <PatternLayout>
-                <Pattern>
-                    %date{yyyy-mm-dd HH:mm} - %highlight{[%-5level]}{FATAL=Yellow, ERROR=red, WARN=Magenta, INFO=Bright Green, DEBUG=Bright Cyan, TRACE=Bright White} %class#%line - %message %n
-                </Pattern>
-            </PatternLayout>
-        </Console>
-        <RollingRandomAccessFile name="ROLL" fileName="target/app.log" filePattern="target/app-%d{yyyy-MM-dd-HH-mm}.log.gz">
-            <PatternLayout>
-                <Pattern>
-                    %date{yyyy-mm-dd HH:mm} - %highlight{[%-5level]}{FATAL=Yellow, ERROR=red, WARN=Magenta, INFO=Bright Green, DEBUG=Bright Cyan, TRACE=Bright White} %class#%line - %message %n
-                </Pattern>
-            </PatternLayout>
-            <Policies>
-                <TimeBasedTriggeringPolicy />
-                <SizeBasedTriggeringPolicy size="8 MB"/>
-            </Policies>
-        </RollingRandomAccessFile>
-    </Appenders>
-    <Loggers>
-        <Root level="INFO">
-            <AppenderRef ref="STDOUT"/>
-        </Root>
-        <Logger name="ga.rugal" level="INFO" additivity="false">
-            <AppenderRef ref="STDOUT"/>
-        </Logger>
-    </Loggers>
+  <Appenders>
+    <Console name="STDOUT">
+      <PatternLayout>
+        <Pattern>
+          %date{yyyy-mm-dd HH:mm} - %highlight{[%-5level]}{FATAL=Yellow, ERROR=red, WARN=Magenta, INFO=Bright Green, DEBUG=Bright Cyan, TRACE=Bright White} %class#%line - %message %n
+        </Pattern>
+      </PatternLayout>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="ERROR">
+      <AppenderRef ref="STDOUT"/>
+    </Root>
+    <Logger name="ga.rugal" level="TRACE" additivity="false">
+      <AppenderRef ref="STDOUT"/>
+    </Logger>
+    <Logger name="config" level="TRACE" additivity="false">
+      <AppenderRef ref="STDOUT"/>
+    </Logger>
+    <Logger name="org.hibernate" level="ERROR" additivity="false">
+      <AppenderRef ref="STDOUT"/>
+    </Logger>
+    <Logger name="org.springframework" level="ERROR" Additivity="false">
+      <AppenderRef ref="STDOUT"/>
+    </Logger>
+  </Loggers>
 </Configuration>

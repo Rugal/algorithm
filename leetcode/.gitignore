@@ -1,2 +1,14 @@
+target/
+.classpath
+.project
+.settings
+nb-configuration.xml
+*.swp
+*.log
+/design/
 /nbproject/
-/target/
+/nbactions.xml
+.idea
+*.iml
+.DS_Store
+/leetcode/nbproject/
