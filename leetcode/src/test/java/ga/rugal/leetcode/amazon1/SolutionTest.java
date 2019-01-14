@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.amazon1;
 
+import ga.rugal.amazon.demo1.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;

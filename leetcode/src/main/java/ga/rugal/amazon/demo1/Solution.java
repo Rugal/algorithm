@@ -1,4 +1,4 @@
-package ga.rugal.leetcode.amazon1;
+package ga.rugal.amazon.demo1;
 
 // IMPORT LIBRARY PACKAGES NEEDED BY YOUR PROGRAM
 import java.util.Arrays;
