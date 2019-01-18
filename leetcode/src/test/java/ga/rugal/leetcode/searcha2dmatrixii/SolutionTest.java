@@ -29,7 +29,12 @@ public class SolutionTest {
                    new int[]{6, 7, 8, 9, 10},
                    new int[]{11, 12, 13, 14, 15},
                    new int[]{16, 17, 18, 19, 20},
-                   new int[]{21, 22, 23, 24, 25}}, 25, true},});
+                   new int[]{21, 22, 23, 24, 25}}, 25, true},
+      {new int[][]{new int[]{1, 4, 7, 11, 15},
+                   new int[]{2, 5, 8, 12, 19},
+                   new int[]{3, 6, 9, 16, 22},
+                   new int[]{10, 13, 14, 17, 24},
+                   new int[]{18, 21, 23, 26, 30}}, 20, false},});
   }
 
   @Parameterized.Parameter(0)

@@ -11,7 +11,7 @@ public class Solution {
 
   private int target;
 
-  public boolean searchMatrix(final int[][] matrix, final int target) {
+  public boolean searchMatrix_(final int[][] matrix, final int target) {
     if (matrix == null || matrix.length == 0) {
       return false;
     }
@@ -40,5 +40,23 @@ public class Solution {
     }
 
     return this.search(row, down, left, mid) || this.search(up, row - 1, mid + 1, right);
+  }
+
+  public boolean searchMatrix(final int[][] matrix, final int target) {
+    if (matrix == null || matrix.length == 0) {
+      return false;
+    }
+
+    for (int row = matrix.length - 1, column = 0; row >= 0 && column < matrix[0].length;) {
+      if (matrix[row][column] == target) {
+        return true;
+      }
+      if (matrix[row][column] > target) {
+        row--;
+      } else {
+        column++;
+      }
+    }
+    return false;
   }
 }
