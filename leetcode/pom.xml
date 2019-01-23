@@ -6,7 +6,7 @@
   <artifactId>leetcode</artifactId>
   <version>0.1</version>
   <packaging>jar</packaging>
-  <name>leetcode</name>
+  <name>Leetcode</name>
   <parent>
     <groupId>ga.rugal</groupId>
     <artifactId>algorithm</artifactId>
