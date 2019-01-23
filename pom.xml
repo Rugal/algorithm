@@ -26,6 +26,7 @@
     <module>tree</module>
     <module>leetcode</module>
     <module>hackerrank</module>
+    <module>lintcode</module>
   </modules>
 
   <dependencies>
@@ -58,7 +59,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-    </dependency>
+    </dependency> 
     <!-- Auto Append -->
   </dependencies>
 
