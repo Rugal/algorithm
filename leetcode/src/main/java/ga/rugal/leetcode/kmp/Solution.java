@@ -19,4 +19,24 @@ public class Solution {
     }
     return result;
   }
+  
+      private boolean match(String str, String target) {
+        if (str.length() < target.length()) {
+            return false;
+        }
+        int[] pi = this.buildNextTable(target);
+        int p = -1;
+        for (int i = 0; i < str.length(); i++) {
+            while (p > -1 && str.charAt(i) != target.charAt(p + 1)) {
+                p = pi[p];
+            }
+            if (target.charAt(p + 1) == str.charAt(i)) {
+                p++;
+            }
+            if (p == target.length() - 1) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
