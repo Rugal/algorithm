@@ -1,13 +1,33 @@
 package ga.rugal.amazon.question2;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 // CLASS BEGINS, THIS CLASS IS REQUIRED
 
 public class Solution {
 
-  private int result = -1;
+  private static class Point {
+
+    int x, y;
+
+    public Point(final int x, final int y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
+
+  private static class Pair {
+
+    Point point;
+
+    int distance;
+
+    public Pair(final Point point, final int distance) {
+      this.point = point;
+      this.distance = distance;
+    }
+  }
 
   // These arrays are used to get row and column numbers
   // of 8 neighbors of a given cell
@@ -25,48 +45,40 @@ public class Solution {
            && !visited[row][col];
   }
 
-  // A utility function to do DFS for a 2D boolean matrix.
-  // It only considers the 8 neighbors as adjacent vertices
-  private void dfs(List<List<Integer>> lot, int row, int col, boolean visited[][], int count) {
+  private boolean isValid(final int x, final int y, final int[][] lot) {
+    return 0 <= x && x < lot.length
+           && 0 <= y && y < lot[0].length;
+  }
 
-    // Mark this cell as visited
-    visited[row][col] = true;
+  private int bfs(final int[][] lot, final Point begin, final Point end) {
+    if (0 == lot[begin.x][begin.y]
+        || 0 == lot[end.x][end.y]) {
+      return -1;
+    }
+    final boolean[][] visited = new boolean[lot.length][lot[0].length];
+    visited[begin.x][begin.y] = true;
+    final Queue<Pair> queue = new LinkedList<>();
+    queue.add(new Pair(begin, 0));
+    while (!queue.isEmpty()) {
+      final Pair head = queue.poll();
 
-    // Recur for all connected neighbours
-    for (int i = 0; i < 4; ++i) {
-      if (this.isSafe(lot, row + ROW_NEIBOUGH[i], col + COL_NEIBOUGH[i], visited)) {
-        ++count;
-        final Integer get = lot.get(row + ROW_NEIBOUGH[i]).get(col + COL_NEIBOUGH[i]);
-        if (get == 1) {
-          dfs(lot, row + ROW_NEIBOUGH[i], col + COL_NEIBOUGH[i], visited, count);
-        }
-        if (get == 9) {
-          if (this.result != -1) {
-            this.result = Math.min(this.result, count);
-          } else {
-            result = count;
-          }
-          return;
+      if (head.point.x == end.x && head.point.y == end.y) {
+        return head.distance;
+      }
+
+      for (int i = 0; i < ROW_NEIBOUGH.length; ++i) {
+        final int nextX = head.point.x + ROW_NEIBOUGH[i];
+        final int nextY = head.point.y + COL_NEIBOUGH[i];
+        if (this.isValid(nextX, nextY, lot)
+            && lot[nextX][nextY] == 1
+            && visited[nextX][nextY]) {
+          visited[nextX][nextY] = true;
+          queue.add(new Pair(new Point(nextX, nextY), head.distance));
         }
       }
     }
-  }
 
-  public int removeObstacle(int numRows, int numColumns, List<List<Integer>> lot) {
-    // WRITE YOUR CODE HERE
-    //find obstacle coordinates    this.result = 0;
-    final boolean[][] visited = new boolean[numRows][numColumns];
-    this.dfs(lot, 0, 0, visited, 0);
-    return this.result;
+    return -1;
   }
   // METHOD SIGNATURE ENDS
-
-  public static void main(String[] args) {
-    final Solution s = new Solution();
-    List<List<Integer>> lot = new ArrayList<>();
-    lot.add(Arrays.asList(1, 0, 0));
-    lot.add(Arrays.asList(1, 0, 0));
-    lot.add(Arrays.asList(1, 9, 1));
-    s.removeObstacle(3, 3, lot);
-  }
 }
