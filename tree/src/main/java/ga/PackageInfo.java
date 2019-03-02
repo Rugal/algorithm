@@ -4,7 +4,6 @@ package ga;
  *
  * @author Rugal Bernstein
  */
-public interface PackageInfo
-{
+public interface PackageInfo {
 
 }
