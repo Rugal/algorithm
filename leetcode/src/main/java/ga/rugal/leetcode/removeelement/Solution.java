@@ -23,44 +23,15 @@ package ga.rugal.leetcode.removeelement;
 public class Solution {
 
   public int removeElement(final int[] nums, final int val) {
-    int match;
-    for (match = 0; match < nums.length; ++match) {
-      if (nums[match] == val) {
-        break;
-      }
-    }
-    if (match >= nums.length) {
-      return nums.length;
-    }
-    int mismatch;
-
-    for (mismatch = nums.length - 1; mismatch >= 0; --mismatch) {
-      if (nums[mismatch] != val) {
-        break;
-      }
-    }
-    if (mismatch < 0) {
-      return 0;
-    }
-    while (match < mismatch) {
-      //swap
-      final int temp = nums[match];
-      nums[match] = nums[mismatch];
-      nums[mismatch] = temp;
-
-      for (; match < nums.length; ++match) {
-        if (nums[match] == val) {
-          break;
-        }
-      }
-
-      for (; mismatch >= 0; --mismatch) {
-        if (nums[mismatch] != val) {
-          break;
-        }
+    int unmatch = 0;
+    for (int i = 0; i < nums.length; ++i) {
+      if (val != nums[i]) {
+        final int temp = nums[i];
+        nums[i] = nums[unmatch];
+        nums[unmatch++] = temp;
       }
     }
 
-    return match;
+    return unmatch;
   }
 }
