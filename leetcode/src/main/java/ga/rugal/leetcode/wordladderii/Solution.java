@@ -46,54 +46,53 @@ public class Solution {
   public List<List<String>> findLadders(final String beginWord,
                                         final String endWord,
                                         final List<String> wordList) {
-    final List<List<String>> res = new ArrayList<>();
+    final List<List<String>> result = new ArrayList<>();
 
     if (beginWord == null || endWord == null || wordList == null) {
-      return res;
+      return result;
     }
     this.map.clear();
     this.build(wordList);
 
-    final HashSet<String> wordSet = new HashSet<>(wordList);
+    final Set<String> unvisited = new HashSet<>(wordList);
+    final Set<String> currentVisited = new HashSet<>();
+    final Queue<WordNode> bfsQueue = new LinkedList<>();
 
-    final Queue<WordNode> wordQueue = new LinkedList<>();
-    final Set<String> curLevel = new HashSet<>();
-
-    wordQueue.offer(new WordNode(beginWord, new ArrayList<>(), 1));
-    curLevel.add(beginWord);
+    bfsQueue.offer(new WordNode(beginWord, new ArrayList<>(), 1));
+    currentVisited.add(beginWord);
 
     boolean foundEnd = false;
 
-    while (!wordQueue.isEmpty() && !foundEnd) {
+    while (!bfsQueue.isEmpty() && !foundEnd) {
       //Get rid of visited word
-      wordSet.removeAll(curLevel);
-      curLevel.clear();
+      unvisited.removeAll(currentVisited);
+      currentVisited.clear();
 
       //Scan only for one level
-      final int size = wordQueue.size();
+      final int size = bfsQueue.size();
 
       for (int w = 0; w < size; w++) {
-        final WordNode top = wordQueue.poll();
+        final WordNode top = bfsQueue.poll();
 
         for (int i = 0; i < top.getLastWord().length(); ++i) {
-          for (String s : this.map.getOrDefault(this.getWord(top.getLastWord(), i),
+          for (final String s : this.map.getOrDefault(this.getWord(top.getLastWord(), i),
                                                 new ArrayList<>())) {
-            if (wordSet.contains(s)) {
+            if (unvisited.contains(s)) {
               final WordNode newNode = new WordNode(s, top.path, top.steps + 1);
               if (s.equals(endWord)) {
                 //Since we are using BFS, the first time this block gets excuted, we found the shortest steps.
-                res.add(newNode.path);
+                result.add(newNode.path);
                 foundEnd = true;
               }
-              wordQueue.offer(newNode);
-              curLevel.add(s);
+              bfsQueue.offer(newNode);
+              currentVisited.add(s);
             }
           }
         }
       }
     }
 
-    return res;
+    return result;
   }
 
   class WordNode {
