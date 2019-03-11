@@ -67,8 +67,8 @@ public class Solution {
       //Get rid of visited word
       unvisited.removeAll(currentVisited);
       currentVisited.clear();
-
       //Scan only for one level
+      //To control scope of BFS
       final int size = bfsQueue.size();
 
       for (int w = 0; w < size; w++) {
@@ -76,17 +76,17 @@ public class Solution {
 
         for (int i = 0; i < top.getLastWord().length(); ++i) {
           for (final String s : this.map.getOrDefault(this.getWord(top.getLastWord(), i),
-                                                new ArrayList<>())) {
-            if (unvisited.contains(s)) {
-              final WordNode newNode = new WordNode(s, top.path, top.steps + 1);
-              if (s.equals(endWord)) {
-                //Since we are using BFS, the first time this block gets excuted, we found the shortest steps.
-                result.add(newNode.path);
-                foundEnd = true;
-              }
-              bfsQueue.offer(newNode);
-              currentVisited.add(s);
+                                                      new ArrayList<>())) {
+            if (!unvisited.contains(s)) {
+              continue;
             }
+            final WordNode newNode = new WordNode(s, top.path, top.steps + 1);
+            if (s.equals(endWord)) {
+              result.add(newNode.path);
+              foundEnd = true;
+            }
+            bfsQueue.offer(newNode);
+            currentVisited.add(s);
           }
         }
       }
