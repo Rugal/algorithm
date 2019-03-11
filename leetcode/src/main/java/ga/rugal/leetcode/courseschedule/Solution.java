@@ -33,16 +33,20 @@ public class Solution {
 
     final Queue<Integer> queue = new LinkedList<>();
     for (int i = 0; i < g.nVertices; i++) {
+      //courses that have no prerequisite
       if (g.inDegrees[i] == 0) {
         queue.add(i);
       }
     }
+    //only process this many nodes
     int topSortNodes = g.nVertices;
+    //start from courses that have no prerequisite
     while (!queue.isEmpty()) {
       final int curr = queue.poll();
       topSortNodes--;
       final LinkedList<Integer> neighbors = g.adjacencyList[curr];
       for (int node : neighbors) {
+        //similarly, add these that have no prerequisite after removing the up relationship
         if (0 == --g.inDegrees[node]) {
           queue.add(node);
         }
