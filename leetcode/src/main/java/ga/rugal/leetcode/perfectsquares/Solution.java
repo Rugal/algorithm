@@ -24,14 +24,14 @@ package ga.rugal.leetcode.perfectsquares;
 public class Solution {
 
   public int numSquares(int n) {
-
-    int[] square = new int[n + 1];
+    //just like coin change
+    //this is to initialize all coins available
+    final int[] square = new int[n + 1];
     for (int i = 1; i * i <= n; ++i) {
-      final int t = i * i;
-      if (n == t) {
+      square[i] = i * i;
+      if (n == square[i]) {
         return 1;
       }
-      square[i] = t;
     }
 
     final int[] dp = new int[n + 1];
@@ -39,9 +39,9 @@ public class Solution {
     for (int i = 1; i < dp.length; i++) {
       dp[i] = Integer.MAX_VALUE;
       for (int j = 0; j < square.length; j++) {
-        if (i - square[j] >= 0
-            && dp[i - square[j]] != Integer.MAX_VALUE
-            && dp[i] > dp[i - square[j]] + 1) {
+        if (i - square[j] >= 0 // if this amount is valid
+            && dp[i - square[j]] != Integer.MAX_VALUE //if subproblem is solved
+            && dp[i] > dp[i - square[j]] + 1) { //if this solution is better
 
           dp[i] = dp[i - square[j]] + 1;
         }
