@@ -37,24 +37,25 @@ public class Solution {
       return res;
     }
     boolean[] used = new boolean[this.numbers.length];
-    List<Integer> list = new ArrayList<>();
     Arrays.sort(this.numbers);
-    dfs(used, list);
+    this.dfs(used, new ArrayList<>());
     return res;
   }
 
-  private void dfs(boolean[] used, List<Integer> list) {
+  private void dfs(final boolean[] used, final List<Integer> list) {
     if (list.size() == numbers.length) {
       res.add(new ArrayList<>(list));
       return;
     }
     for (int i = 0; i < numbers.length; i++) {
-      if (used[i] || (i > 0 && numbers[i - 1] == numbers[i] && !used[i - 1])) {
+      if (used[i]
+          //same as duplicated subset, this is to skip duplication
+          || (i > 0 && numbers[i - 1] == numbers[i] && !used[i - 1])) {
         continue;
       }
-      used[i] = true;
+      used[i] = true;//prevent the same index from being used again
       list.add(numbers[i]);
-      dfs(used, list);
+      this.dfs(used, list);
       used[i] = false;
       list.remove(list.size() - 1);
     }
