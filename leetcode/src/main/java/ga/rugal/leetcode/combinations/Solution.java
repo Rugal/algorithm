@@ -49,7 +49,13 @@ public class Solution {
          ++i) {
       temp.add(i);
       this.backtrack(temp, i);
-      temp.remove(temp.size() - 1);
+      temp.remove(temp.size() - 1);//this is to keep data within validate state after sub-backtrack before going to next loop
+      /*
+       * e.g.: i = 1 -> after backtrack -> temp always contains 1,2,....
+       * If not removing it from temp, the next loop will always have 1,2 inside
+       * So the temp.size() will always be k, and the next loop won't be able to proceed
+       */
+      //this technique is usually needed for backtrack
     }
   }
 }
