@@ -16,9 +16,7 @@
 package ga.rugal.leetcode.wordsearchii;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * https://leetcode.com/problems/word-search-ii/
@@ -27,67 +25,67 @@ import java.util.Set;
  */
 public class Solution {
 
-  private char[][] board;
-
-  private String word;
-
-  private final Set<String> result = new HashSet<>();
-
-  private boolean find = false;
-
   private static final int[] X = new int[]{0, 1, 0, -1};
 
   private static final int[] Y = new int[]{1, 0, -1, 0};
 
-  public List<String> findWords(final char[][] board, final String[] words) {
-    this.board = board;
-    for (String s : words) {
-      if (this.findWord(s)) {
-        this.result.add(s);
+  public List<String> findWords(char[][] board, String[] words) {
+    List<String> res = new ArrayList<>();
+    TrieNode root = buildTrie(words);
+    for (int i = 0; i < board.length; i++) {
+      for (int j = 0; j < board[0].length; j++) {
+        dfs(board, i, j, root, res);
       }
     }
-    return new ArrayList<>(this.result);
+    return res;
   }
 
-  private boolean findWord(final String word) {
-    this.word = word;
-    this.find = false;
-    for (int i = 0; i < this.board.length; ++i) {
-      for (int j = 0; j < this.board[0].length; ++j) {
-        if (this.dfs(i, j, 0, new boolean[this.board.length][this.board[0].length])) {
-          return true;
+  private void dfs(char[][] board, int i, int j, TrieNode p, List<String> res) {
+    final char c = board[i][j];
+    //if it is the origin or no word
+    if (c == '#' || p.next[c - 'a'] == null) {
+      return;
+    }
+    p = p.next[c - 'a'];
+    if (p.word != null) {   // found one
+      res.add(p.word);
+      p.word = null;     // de-duplicate
+    }
+
+    board[i][j] = '#';
+    //try to find the next character
+    for (int r = 0; r < X.length; ++r) {
+      int newI = i + X[r];
+      int newJ = j + Y[r];
+
+      if (newI >= 0 && newI < board.length && newJ >= 0 && newJ < board[0].length) {
+        dfs(board, newI, newJ, p, res);
+      }
+    }
+
+    board[i][j] = c;
+  }
+
+  private TrieNode buildTrie(String[] words) {
+    TrieNode root = new TrieNode();
+    for (String w : words) {
+      TrieNode p = root;
+      for (char c : w.toCharArray()) {
+        int i = c - 'a';
+        if (p.next[i] == null) {
+          p.next[i] = new TrieNode();
         }
+        p = p.next[i];
       }
+      p.word = w;
     }
-    return false;
+    return root;
   }
 
-  private boolean isValid(final int row, final int column, final boolean[][] visit) {
-    return row >= 0 && row < this.board.length
-           && column >= 0 && column < this.board[0].length
-           && !visit[row][column];
-  }
+  class TrieNode {
 
-  private boolean dfs(final int row, final int column, final int index, final boolean[][] visited) {
-    if (this.find) {
-      return true;
-    }
-    if (this.word.charAt(index) != this.board[row][column]) {
-      return false;
-    }
-    if (index == this.word.length() - 1) {
-      this.find = true;
-      return true;
-    }
-    visited[row][column] = true;
-    for (int i = 0; i < X.length; ++i) {
-      if (this.isValid(row + X[i], column + Y[i], visited)
-          && this.dfs(row + X[i], column + Y[i], index + 1, visited)) {
-        return true;
-      }
-    }
-    visited[row][column] = false;
+    TrieNode[] next = new TrieNode[26];
 
-    return false;
+    String word;
   }
 }
