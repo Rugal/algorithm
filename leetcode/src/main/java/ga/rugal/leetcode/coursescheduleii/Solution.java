@@ -58,8 +58,8 @@ public class Solution {
 
     return topSortNodes == 0
            ? result.stream()
-              .mapToInt(Integer::intValue)
-              .toArray()
+        .mapToInt(Integer::intValue)
+        .toArray()
            : new int[0];
   }
 
@@ -75,17 +75,17 @@ public class Solution {
     final int[] inDegrees;
 
     Graph(int n) {
-      nVertices = n;
-      adjacencyList = new LinkedList[n];
+      this.nVertices = n;
+      this.adjacencyList = new LinkedList[n];
       for (int i = 0; i < n; i++) {
-        adjacencyList[i] = new LinkedList<>();
+        this.adjacencyList[i] = new LinkedList<>();
       }
-      inDegrees = new int[n];
+      this.inDegrees = new int[n];
     }
 
     private void addEdge(int src, int destination) {
-      adjacencyList[src].add(destination);
-      inDegrees[destination]++;
+      this.adjacencyList[src].add(destination);
+      this.inDegrees[destination]++;
     }
   }
 }
