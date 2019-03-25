@@ -31,13 +31,15 @@ public class Solution {
 
   private Set<String> set;
 
+  private final Map<String, List<String>> map = new HashMap<>();
+
   public List<String> wordBreak(String s, List<String> wordDict) {
     if (s.length() == 0) {
       return new ArrayList<>();
     }
 
     this.set = new HashSet<>(wordDict);
-    return dfs(s, new HashMap<>());
+    return dfs(s);
   }
 
   /**
@@ -45,11 +47,10 @@ public class Solution {
    * check the second part
    *
    * @param s
-   * @param map
    *
    * @return
    */
-  public List<String> dfs(final String s, final Map<String, List<String>> map) {
+  public List<String> dfs(final String s) {
     // retrieve memo from map cache
     if (map.containsKey(s)) {
       return map.get(s);
@@ -63,16 +64,16 @@ public class Solution {
 
     // try every possible prefix string, and recursively check postfix string
     for (int i = 1; i < s.length(); i++) {
-      String prefix = s.substring(0, i);
+      final String prefix = s.substring(0, i);
       if (set.contains(prefix)) {
-        List<String> tempList = dfs(s.substring(i), map);
+        final List<String> tempList = this.dfs(s.substring(i));
         for (int j = 0; j < tempList.size(); j++) {
           result.add(prefix + " " + tempList.get(j));
         }
       }
     }
     // update memo cache
-    map.put(s, result);
+    this.map.put(s, result);
     return result;
   }
 }
