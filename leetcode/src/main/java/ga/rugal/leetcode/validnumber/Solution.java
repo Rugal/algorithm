@@ -13,22 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ga.rugal.leetcode.jumpgame;
+package ga.rugal.leetcode.validnumber;
 
 /**
- * https://leetcode.com/problems/jump-game/
+ * https://leetcode.com/problems/valid-number/
  *
  * @author rugal
  */
 public class Solution {
 
-  public boolean canJump(int[] nums) {
-    int lastPos = nums.length - 1;
-    for (int i = nums.length - 1; i >= 0; i--) {
-      if (i + nums[i] >= lastPos) {//update only if current element can somehow reach destination
-        lastPos = i;//last position that can reach destination
+  public boolean isNumber(String s) {
+    try {
+      s = s.trim();
+      int n = s.length();
+      if (n == 0 || (s.charAt(n - 1) != '.' && (s.charAt(n - 1) - '0' < 0 || s.charAt(n - 1) - '0' > 9))) {
+        return false;
       }
+      double i = Double.parseDouble(s);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
     }
-    return lastPos == 0;
   }
 }
