@@ -10,42 +10,25 @@ import ga.rugal.leetcode.ListNode;
  */
 public class Solution {
 
-  private int getLength(final ListNode list) {
-    int i = 0;
-    for (ListNode n = list; n != null; n = n.next, ++i);
-    return i;
-  }
-
   public ListNode addTwoNumbers(ListNode input1, ListNode input2) {
-    final int l1 = this.getLength(input1);
-    final int l2 = this.getLength(input2);
-    final ListNode list1 = l1 >= l2 ? input1 : input2;
-    final ListNode list2 = l1 < l2 ? input1 : input2;
-
-    ListNode current = list1;
-
-    for (ListNode n2 = list2;
-         null != n2 && null != current;
-         current = current.next, n2 = n2.next) {
-      if (null == current.next) {
-        current.next = new ListNode(0);
-      }
-      current.next.val += (current.val + n2.val) / 10;
-      current.val = (current.val + n2.val) % 10;
-      if (0 == current.next.val && current.next.next == null) {
-        current.next = null;
-      }
+    final ListNode head = new ListNode(0);
+    ListNode current = head;
+    int carry = 0;
+    while (input1 != null || input2 != null) {
+      final int a = input1 != null ? input1.val : 0;
+      final int b = input2 != null ? input2.val : 0;
+      carry += (a + b);
+      current.next = new ListNode(carry % 10);
+      carry /= 10;
+      current = current.next;
+      input1 = input1 == null ? null : input1.next;
+      input2 = input2 == null ? null : input2.next;
     }
-    for (; current != null; current = current.next) {
-      if (null == current.next) {
-        current.next = new ListNode(0);
-      }
-      current.next.val += current.val / 10;
-      current.val = current.val % 10;
-      if (0 == current.next.val && current.next.next == null) {
-        current.next = null;
-      }
+
+    if (carry > 0) {
+      current.next = new ListNode(carry);
     }
-    return list1;
+
+    return head.next;
   }
 }

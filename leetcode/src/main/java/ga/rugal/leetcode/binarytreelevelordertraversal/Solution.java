@@ -1,7 +1,9 @@
 package ga.rugal.leetcode.binarytreelevelordertraversal;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import ga.rugal.leetcode.TreeNode;
 
@@ -18,6 +20,31 @@ public class Solution {
 
   public List<List<Integer>> levelOrder(TreeNode root) {
     this.levelTraverse(root, 0);
+    return this.lists;
+  }
+
+  public List<List<Integer>> levelOrder2(final TreeNode root) {
+    if (null == root) {
+      return this.lists;
+    }
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.offer(root);
+    while (!queue.isEmpty()) {
+      final int size = queue.size();
+      final List<Integer> list = new ArrayList<>();
+      for (int i = 0; i < size; ++i) {
+        final TreeNode poll = queue.poll();
+        list.add(poll.val);
+        if (poll.left != null) {
+          queue.offer(poll.left);
+        }
+        if (poll.right != null) {
+          queue.offer(poll.right);
+        }
+      }
+      this.lists.add(list);
+    }
+
     return this.lists;
   }
 

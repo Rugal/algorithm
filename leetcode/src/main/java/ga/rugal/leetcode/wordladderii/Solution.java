@@ -69,6 +69,7 @@ public class Solution {
       currentVisited.clear();
       //Scan only for one level
       //To control scope of BFS
+      //because only one level at a time, the result from same level must all be the best path
       final int size = bfsQueue.size();
 
       for (int w = 0; w < size; w++) {
@@ -82,6 +83,7 @@ public class Solution {
             }
             final WordNode newNode = new WordNode(s, top.path, top.steps + 1);
             if (s.equals(endWord)) {
+              //once it ends here, we need to save all possible path
               result.add(newNode.path);
               foundEnd = true;
             }
