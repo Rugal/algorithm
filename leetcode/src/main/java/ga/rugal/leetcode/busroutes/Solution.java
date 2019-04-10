@@ -45,13 +45,7 @@ public class Solution {
     return map;
   }
 
-  public int numBusesToDestination(int[][] routes, int S, int T) {
-    final Map<Integer, List<Integer>> map = this.build(routes);
-
-    if (!map.containsKey(S)) {
-      return -1;
-    }
-
+  private int bfs(final Map<Integer, List<Integer>> map, int[][] routes, int S, int T) {
     final Queue<Turn> q = new LinkedList<>();
     q.offer(new Turn(S, 0));
     final Set<Integer> visitedRoute = new HashSet<>();
@@ -81,6 +75,10 @@ public class Solution {
     }
 
     return -1;
+  }
+
+  public int numBusesToDestination(int[][] routes, int S, int T) {
+    return this.bfs(this.build(routes), routes, S, T);
   }
 
   class Turn {
