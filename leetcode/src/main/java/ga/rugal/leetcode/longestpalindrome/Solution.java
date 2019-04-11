@@ -22,6 +22,16 @@ package ga.rugal.leetcode.longestpalindrome;
  */
 public class Solution {
 
+  /**
+   * There will have 2 types of palindrome.<BR>
+   * XYX and XX<BR>
+   * the number of X will always be even<BR>
+   * There will have at most 1 Y<BR>
+   *
+   * @param s
+   *
+   * @return
+   */
   public int longestPalindrome(final String s) {
     final int length = 'z' - 'A' + 1;
     final int[] map = new int[length];
@@ -30,8 +40,13 @@ public class Solution {
     }
     int result = 0;
     for (final int v : map) {
+      //if v is even, it can all be put into string
+      //if odd, there will have some pairs that can be put into string, but with 1 character left
       result += (v / 2 * 2);
-      if (result % 2 == 0 && v % 2 == 1) {
+      if (result % 2 == 0 //only if result is even
+          && v % 2 == 1) {//and v is odd
+        //in this case, there have no 1 character been added to string, so we are allowed to do so
+        //but going forward, it is not allowed as we will have XYZX format, which is not palindrome
         ++result;
       }
     }
