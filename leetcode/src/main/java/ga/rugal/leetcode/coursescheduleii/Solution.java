@@ -58,8 +58,8 @@ public class Solution {
 
     return topSortNodes == 0
            ? result.stream()
-        .mapToInt(Integer::intValue)
-        .toArray()
+              .mapToInt(Integer::intValue)
+              .toArray()
            : new int[0];
   }
 

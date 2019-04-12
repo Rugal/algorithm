@@ -28,6 +28,7 @@ public class Solution {
   public boolean canFinish(final int numCourses, final int[][] prerequisites) {
     final Graph g = new Graph(numCourses);
     for (int[] pre : prerequisites) {
+      //from -> to
       g.addEdge(pre[1], pre[0]);
     }
 
@@ -39,13 +40,12 @@ public class Solution {
       }
     }
     //only process this many nodes
+    //if we have more, or few number of nodes got processed, means this is not topologically sortable
     int topSortNodes = g.nVertices;
     //start from courses that have no prerequisite
     while (!queue.isEmpty()) {
-      final int curr = queue.poll();
       topSortNodes--;
-      final LinkedList<Integer> neighbors = g.adjacencyList[curr];
-      for (int node : neighbors) {
+      for (int node : g.adjacencyList[queue.poll()]) {
         //similarly, add these that have no prerequisite after removing the up relationship
         if (0 == --g.inDegrees[node]) {
           queue.add(node);
@@ -75,7 +75,7 @@ public class Solution {
       inDegrees = new int[n];
     }
 
-    private void addEdge(int src, int destination) {
+    private void addEdge(final int src, final int destination) {
       adjacencyList[src].add(destination);
       inDegrees[destination]++;
     }

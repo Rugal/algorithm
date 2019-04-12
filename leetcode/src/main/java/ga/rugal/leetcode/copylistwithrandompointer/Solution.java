@@ -11,10 +11,10 @@ import ga.rugal.leetcode.RandomListNode;
  */
 public class Solution {
 
-  // Visited dictionary to hold old node reference as "key" and new node reference as the "value"
+  // hold old node reference as "key" and new node reference as the "value"
   final HashMap<RandomListNode, RandomListNode> visited = new HashMap<>();
 
-  public RandomListNode getClonedNode(RandomListNode node) {
+  private RandomListNode getClonedNode(final RandomListNode node) {
     RandomListNode temp = null;
     // If the node exists then
     if (node != null) {
@@ -29,7 +29,7 @@ public class Solution {
     return temp;
   }
 
-  public RandomListNode copyRandomList(RandomListNode head) {
+  public RandomListNode copyRandomList(final RandomListNode head) {
 
     if (head == null) {
       return null;

@@ -50,10 +50,10 @@ public class Solution {
     }
 
     for (int i = start; i < this.candidates.length && sum + this.candidates[i] <= target; ++i) {
-      if (used[i]
-          || (i > 0
+      if (used[i] //prevent same [index] from being used
+          || (i > 0 //but allow same [value] to appear in one candidate
               && this.candidates[i - 1] == this.candidates[i]
-              && !used[i - 1])) {//prevent duplicate candidate, but allow same value to appear in one candidate
+              && !used[i - 1])) {
         continue;
       }
       final List<Integer> arrayList = new ArrayList<>(temp);
