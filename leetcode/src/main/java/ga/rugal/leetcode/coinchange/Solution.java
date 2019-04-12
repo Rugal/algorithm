@@ -22,17 +22,17 @@ package ga.rugal.leetcode.coinchange;
  */
 public class Solution {
 
-  public int coinChange(int[] coins, int V) {
+  public int coinChange(final int[] coins, final int V) {
     // table[i] will be storing the minimum number of coins
     // required for i value.  So table[V] will have result
-    int[] table = new int[V + 1];
+    final int[] result = new int[V + 1];
 
     // Base case (If given value V is 0)
-    table[0] = 0;
+    result[0] = 0;
 
     // Initialize all table values as Infinite
     for (int i = 1; i <= V; i++) {
-      table[i] = Integer.MAX_VALUE;
+      result[i] = Integer.MAX_VALUE;
     }
     // Compute minimum coins required for all
     // values from 1 to V
@@ -40,17 +40,18 @@ public class Solution {
       // Go through all coins smaller than i
       for (int j = 0; j < coins.length; j++) {
         //if this value is changable
-        if (coins[j] <= i) {
-          int sub_res = table[i - coins[j]];//Get result of subproblem
-          //The subproblem will be ignored if it is bigger than current choice
-          //or it is not initialized
-          if (sub_res != Integer.MAX_VALUE && sub_res + 1 < table[i]) {
-            //only update under the condition that current choice is guarantee to be better
-            table[i] = sub_res + 1;
-          }
+        if (coins[j] > i) {
+          continue;
+        }
+        final int value = result[i - coins[j]];//Get result of subproblem
+        //The subproblem will be ignored if it is bigger than current choice
+        //or it is not initialized
+        if (value != Integer.MAX_VALUE && value + 1 < result[i]) {
+          //only update under the condition that current choice is guarantee to be better
+          result[i] = value + 1;
         }
       }
     }
-    return table[V] == Integer.MAX_VALUE ? -1 : table[V];
+    return result[V] == Integer.MAX_VALUE ? -1 : result[V];
   }
 }

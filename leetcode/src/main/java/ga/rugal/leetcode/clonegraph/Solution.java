@@ -36,23 +36,23 @@ public class Solution {
       return null;
     }
     final Map<Node, Node> relationship = new HashMap<>();
-    final Queue<Node> bfsQueue = new LinkedList<>();
+    final Queue<Node> queue = new LinkedList<>();
 
     relationship.put(node, new Node(node.val, new ArrayList<>()));
-    bfsQueue.add(node);
+    queue.add(node);
 
-    while (!bfsQueue.isEmpty()) {
-      final Node top = bfsQueue.remove();
-      for (final Node neighbor : top.neighbors) {
+    while (!queue.isEmpty()) {
+      final Node current = queue.remove();
+      for (final Node neighbor : current.neighbors) {
         //if not created yet
         if (!relationship.containsKey(neighbor)) {
           //then first add to relationship cache
           relationship.put(neighbor, new Node(neighbor.val, new ArrayList<>()));
           //then need to queue the newly created node
-          bfsQueue.add(neighbor);
+          queue.add(neighbor);
         }
         //add newly created to neighbour of current node
-        relationship.get(top).neighbors.add(relationship.get(neighbor));
+        relationship.get(current).neighbors.add(relationship.get(neighbor));
       }
     }
     return relationship.get(node);
