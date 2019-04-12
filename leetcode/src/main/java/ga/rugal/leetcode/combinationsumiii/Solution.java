@@ -31,11 +31,11 @@ public class Solution {
 
   public List<List<Integer>> combinationSum3(final int leftNumber, final int target) {
     this.leftNumber = leftNumber;
-    this.backtrack(new ArrayList<>(), target);
+    this.backtrack(new ArrayList<>(), target, 1);
     return this.result;
   }
 
-  private void backtrack(final List<Integer> temp, final int target) {
+  private void backtrack(final List<Integer> temp, final int target, final int start) {
     if (temp.size() > this.leftNumber || target < 0) {
       //too many element, or too much data
       return;
@@ -45,12 +45,11 @@ public class Solution {
       this.result.add(new ArrayList<>(temp));
       return;
     }
-    for (int i = 1; i < 10; ++i) {
-      //to prevent from duplication
-      if (temp.size() > 0 && temp.get(temp.size() - 1) < i
-          || temp.isEmpty()) {
+    for (int i = start; i < 10; ++i) {
+      //to prevent duplication
+      if (temp.isEmpty() || temp.get(temp.size() - 1) < i) {
         temp.add(i);
-        this.backtrack(temp, target - i);
+        this.backtrack(temp, target - i, start + 1);
         temp.remove(temp.size() - 1);
       }
     }
