@@ -22,7 +22,7 @@ public class Solution {
       //We basically add the bit by the reverse order of previous list
 
       //example: we have 00 and 01
-      //add one bit to 01 then, 00
+      //add one bit to 01 then, to 00
       //and we have 11 and 10
       //in totaly we have 00, 01, 11, 10
       for (int j = size - 1; j >= 0; j--) {

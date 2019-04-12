@@ -30,6 +30,7 @@ public class Solution {
       //put number to the correct index. n into index n - 1, begin with 1
       while (nums[i] > 0 && nums[i] <= nums.length //if index for move is valid
              && nums[nums[i] - 1] != nums[i]) {//if value for move is different
+        //keep swapping till everything in this round fits in their own place
         this.swap(i, nums[i] - 1);
       }
     }
