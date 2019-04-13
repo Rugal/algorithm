@@ -12,6 +12,14 @@ public class Solution {
 
   private int kcount = 0;
 
+  /**
+   * Inorder traversal can find k smallest element in tree in the most efficient way.<BR>
+   *
+   * @param root
+   * @param k
+   *
+   * @return
+   */
   public int kthSmallest(final TreeNode root, final int k) {
     this.count = 0;
     this.kcount = k;
@@ -25,11 +33,12 @@ public class Solution {
     if (root == null) {
       return null;
     }
-
+    //by recursion, it will go down to the very bottom left first
     final TreeNode left = this.inorder(root.left);
     if (left != null) {
       return left;
     }
+    //then start to count from bottom left
     if (++this.count == this.kcount) {
       return root;
     }

@@ -13,8 +13,9 @@ public class Solution {
     if (null == head || head.next == null) {
       return false;
     }
+    //2 pointer with different speed
     for (ListNode slow = head, fast = head.next;
-         fast != null && fast.next != null;
+         fast != null && fast.next != null;//need to take care of the fast pointer
          slow = slow.next, fast = fast.next.next) {
       if (slow == fast) {
         return true;

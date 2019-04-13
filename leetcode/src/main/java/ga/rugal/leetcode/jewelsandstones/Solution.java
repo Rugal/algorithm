@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public class Solution {
 
-  public int numJewelsInStones(String J, String S) {
+  public int numJewelsInStones(final String J, final String S) {
     Set<Character> set = new HashSet();
     for (char j : J.toCharArray()) {
       set.add(j);

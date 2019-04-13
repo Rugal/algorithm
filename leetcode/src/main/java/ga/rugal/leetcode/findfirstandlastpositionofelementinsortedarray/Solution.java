@@ -36,12 +36,13 @@ public class Solution {
     int left;
     int right;
     int found = mid;
-
+    //search left part for the left bound
     do {
       left = found;
       found = this.binarySearch(0, left);
     } while (-1 != found);
     found = mid;
+    //search right part for the right bound
     do {
       right = found + 1;
       found = this.binarySearch(right, this.nums.length);

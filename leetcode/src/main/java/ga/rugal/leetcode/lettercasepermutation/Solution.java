@@ -41,9 +41,11 @@ public class Solution {
       return;
     }
 
+    //always add character irregardless of character or digit
     temp.append(Character.toLowerCase(this.text.charAt(start)));
     this.backtrack(new StringBuilder(temp.toString()), start + 1);
 
+    //flip it if is character
     if (!Character.isDigit(this.text.charAt(start))) {
       temp.deleteCharAt(temp.length() - 1);
       temp.append(Character.toUpperCase(this.text.charAt(start)));

@@ -31,6 +31,7 @@ public class Solution {
     final int size = intervals.size();
     for (int i = 0; i < intervals.size(); ++i) {
       if (intervals.get(i).start >= newInterval.start) {
+        //insert into a suitable position
         intervals.add(i, newInterval);
         break;
       }
@@ -41,9 +42,10 @@ public class Solution {
     final LinkedList<Interval> merged = new LinkedList<>();
     for (final Interval interval : intervals) {
       if (merged.isEmpty() || merged.getLast().end < interval.start) {
+        // new interval
         merged.add(interval);
-      } // otherwise, there is overlap, so we merge the current and previous intervals.
-      else {
+      } else {
+        // otherwise, there is overlap, so we merge the current and previous intervals.
         merged.getLast().end = Math.max(merged.getLast().end, interval.end);
       }
     }

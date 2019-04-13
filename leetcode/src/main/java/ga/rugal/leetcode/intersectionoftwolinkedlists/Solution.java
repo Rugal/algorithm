@@ -13,6 +13,7 @@ public class Solution {
     if (headA == null || headB == null) {
       return null;
     }
+    //add dummy head
     final ListNode beforeA = new ListNode(0);
     beforeA.next = headA;
     final ListNode beforeB = new ListNode(0);
@@ -20,7 +21,7 @@ public class Solution {
 
     ListNode a = headA;
     ListNode b = headB;
-    final boolean[] set = new boolean[2];
+    final boolean[] set = new boolean[2];//see if reaches the end
     while (a != b) {
       if (a.next == null && !set[0]) {
         a = beforeB;

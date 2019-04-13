@@ -32,6 +32,7 @@ public class Solution {
       final List<String> temp = new ArrayList<>();
       final String chars = ARRAY[digits.charAt(i) - '0'];
 
+      //append one new character for every existing result
       for (int c = 0; c < chars.length(); c++) {
         for (int j = 0; j < result.size(); j++) {
           temp.add(result.get(j) + chars.charAt(c));

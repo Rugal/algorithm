@@ -22,7 +22,13 @@ package ga.rugal.leetcode.happynumber;
  */
 public class Solution {
 
-  //math solution
+  /**
+   * math solution.
+   *
+   * @param n
+   *
+   * @return
+   */
   public boolean isHappy(int n) {
     while (n != 1) {
       final String s = Integer.toString(n);
@@ -39,7 +45,13 @@ public class Solution {
     return true;
   }
 
-  //convert into cyclic link list problem
+  /**
+   * convert into cyclic link list problem.
+   *
+   * @param n
+   *
+   * @return
+   */
   public boolean isHappy2(int n) {
     int x = n;
     int y = n;
