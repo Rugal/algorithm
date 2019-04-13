@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * https://leetcode.com/problems/longest-substring-without-repeating-characters/
  *
  * @author Rugal Bernstein
  */
@@ -14,13 +15,11 @@ public class Solution {
     int max = 0;
     for (int current = 0, start = 0; current < s.length(); ++current) {
       final char c = s.charAt(current);
-      //if contains duplicate key
-      //which means the last longest substring ends here
+      //a duplicate occurs, we need to move head to the right
       if (map.containsKey(c)) {
-        //then update the start index of new longest substring
-        //either +1 of last start index, or
-        start = Math.max(map.get(c) + 1, // for "aba..." case
-                         start); // for "abb..."
+        //but to which extend?
+        start = Math.max(map.get(c) + 1, // for "aba..." case, move to the b
+                         start); // for "abba...", move to the second b
       }
       max = Math.max(max, current - start + 1);
       map.put(c, current);

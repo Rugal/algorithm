@@ -11,18 +11,24 @@ public class Solution {
     if (s.isEmpty()) {
       return "";
     }
-    String res = s.substring(0, 1);
-    int currLength = 1;
+    String result = s.substring(0, 1);
+    int currentLength = 1;
     for (int i = 0; i < s.length(); i++) {
-      if (this.isPalindrome(s, i - currLength - 1, i)) {
-        res = s.substring(i - currLength - 1, i + 1);
-        currLength += 2;
-      } else if (this.isPalindrome(s, i - currLength, i)) {
-        res = s.substring(i - currLength, i + 1);
-        currLength++;
+      //first try with 2 more characters X??
+      if (this.isPalindrome(s, i - currentLength - 1, i)) {
+        //first substring
+        result = s.substring(i - currentLength - 1, i + 1);
+        //then update palindrome length
+        currentLength += 2;
+        continue;
+      }
+      //if 2 not works, try with 1 more character X?
+      if (this.isPalindrome(s, i - currentLength, i)) {
+        result = s.substring(i - currentLength, i + 1);
+        currentLength++;
       }
     }
-    return res;
+    return result;
   }
 
   private boolean isPalindrome(final String s, int begin, int end) {
