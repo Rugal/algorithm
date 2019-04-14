@@ -22,15 +22,14 @@ package ga.rugal.leetcode.maximumsubarray;
  */
 public class Solution {
 
-  public int maxSubArray(int[] nums) {
-    int acc = 0, max = Integer.MIN_VALUE;
-    for (int i = 0; i < nums.length; i++) {
-      acc = Math.max(acc, 0); // reset negative accumulation as the new value can at least be positive
-      acc += nums[i];//try to accumulate
-      max = Math.max(max, acc);//
+  public int maxSubArray(final int[] nums) {
+    int accumulate = 0, max = Integer.MIN_VALUE;
+    for (int i : nums) {
+      // reset negative accumulation to 0 because we can use no number at all just to get 0 value
+      accumulate = Integer.max(accumulate, 0);
+      accumulate += i;
+      max = Integer.max(max, accumulate);
     }
-
     return max;
-
   }
 }

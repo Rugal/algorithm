@@ -19,7 +19,8 @@ public class Solution {
       return l1;
     }
 
-    ListNode root = new ListNode(0);
+    //better to add this dummp header
+    final ListNode root = new ListNode(0);
     ListNode current = root;
     while (l1 != null && l2 != null) {
       if (l1.val < l2.val) {

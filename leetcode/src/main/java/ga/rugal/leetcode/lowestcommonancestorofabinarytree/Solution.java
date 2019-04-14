@@ -11,16 +11,35 @@ public class Solution {
 
   private TreeNode result;
 
-  private boolean test(final TreeNode current, final TreeNode p, final TreeNode q) {
+  private TreeNode p;
+
+  private TreeNode q;
+
+  private boolean dfs(final TreeNode current) {
     if (null == current) {
       return false;
     }
-    final int left = this.test(current.left, p, q) ? 1 : 0;
-    final int right = this.test(current.right, p, q) ? 1 : 0;
-    final int mid = (current == p || current == q) ? 1 : 0;
+    final int mid = (current == p || current == q) ? 1 : 0;//data source
+    final int left = this.dfs(current.left) ? 1 : 0;
+    final int right = this.dfs(current.right) ? 1 : 0;
     final int count = left + mid + right;
-    if (count > 1) {
-      //if has 2 sides match
+    if (count > 1) {//this is key, if has 2 sides match
+      /*
+       * in all cases, setting O as result will give us the correct answer
+       *  O
+       * / \
+       *p+  q+
+       *
+       *  O+
+       * / \
+       *p   q+
+       *
+       *  O+
+       * / \
+       *p+  q
+       */
+      //but it wont if only 1 node matches, because the parent of result could also match 1 node,
+      //either left or right matches, so this will mistakenly update the result to its parent
       this.result = current;
     }
     //any side matches
@@ -28,7 +47,9 @@ public class Solution {
   }
 
   public TreeNode lowestCommonAncestor(final TreeNode root, final TreeNode p, final TreeNode q) {
-    this.test(root, p, q);
+    this.p = p;
+    this.q = q;
+    this.dfs(root);
     return this.result;
   }
 }

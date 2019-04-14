@@ -19,17 +19,14 @@ public class Solution {
     return array.getMedian();
   }
 
-  public double test(int[] num1, int[] num2) {
-    int m = num1.length;
-    int n = num2.length;
-    if (m > n) { // to ensure m<=n
+  public double recursive(int[] num1, int[] num2) {
+    if (num1.length > num2.length) { // to ensure m<=n
       int[] temp = num1;
       num1 = num2;
       num2 = temp;
-      int tmp = m;
-      m = n;
-      n = tmp;
     }
+    int m = num1.length;
+    int n = num2.length;
     int iMin = 0, iMax = m, halfLen = (m + n + 1) / 2;
     while (iMin <= iMax) {
       int i = (iMin + iMax) / 2;
@@ -104,10 +101,9 @@ public class Solution {
     }
 
     public double getMedian() {
-      if (this.size() % 2 == 1) {
-        return this.desc.peek();
-      }
-      return (this.desc.peek() + this.asc.peek()) / 2.0;
+      return (this.size() % 2 == 1)
+             ? this.desc.peek()
+             : (this.desc.peek() + this.asc.peek()) / 2.0;
     }
 
     public int size() {

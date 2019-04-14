@@ -7,6 +7,13 @@ package ga.rugal.leetcode.mincostclimbingstairs;
  */
 public class Solution {
 
+  /**
+   * Very simple DP.
+   *
+   * @param cost
+   *
+   * @return
+   */
   public int minCostClimbingStairs(int[] cost) {
 
     int first = cost[0];

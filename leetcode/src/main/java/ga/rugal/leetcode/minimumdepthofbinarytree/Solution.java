@@ -21,6 +21,7 @@ import java.util.Queue;
 import ga.rugal.leetcode.TreeNode;
 
 /**
+ * https://leetcode.com/problems/minimum-depth-of-binary-tree/
  *
  * @author rugalbernstein
  */
@@ -38,6 +39,14 @@ public class Solution {
     }
   }
 
+  /**
+   * Convert extreme question into BFS, Traverse tree by level.<BR>
+   * The first node that has no child must be the min depth.
+   *
+   * @param root
+   *
+   * @return
+   */
   public int minDepth(final TreeNode root) {
     final Queue<Pair> queue = new LinkedList<>();
     queue.add(new Pair(root, 1));
