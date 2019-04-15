@@ -3,8 +3,7 @@ package ga.rugal.leetcode.reverselinkedlist;
 import ga.rugal.leetcode.ListNode;
 
 /**
- * Definition for singly-linked list. public class ListNode { int val; ListNode next; ListNode(int
- * x) { val = x; } }
+ * https://leetcode.com/problems/reverse-linked-list/
  */
 public class Solution {
 

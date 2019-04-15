@@ -3,25 +3,28 @@ package ga.rugal.leetcode.removenthnodefromendoflist;
 import ga.rugal.leetcode.ListNode;
 
 /**
+ * https://leetcode.com/problems/remove-nth-node-from-end-of-list/
  *
  * @author Rugal Bernstein
  */
 public class Solution {
 
-  public ListNode removeNthFromEnd(ListNode head, final int n) {
-    ListNode current = head, last = head;
-    for (int i = 0; i < n; ++i) {
-      last = last.next;
+  public ListNode removeNthFromEnd(final ListNode head, final int n) {
+    //listen! always add dummy head in these kinds of questions
+    final ListNode dummy = new ListNode(0);
+    dummy.next = head;
+    ListNode first = dummy;
+    ListNode second = dummy;
+    // Advances first pointer so that the gap between first and second is n nodes apart
+    for (int i = 1; i <= n + 1; i++) {
+      first = first.next;
     }
-    while (last != null && null != last.next) {
-      last = last.next;
-      current = current.next;
+    // Move first to the end, maintaining the gap
+    while (first != null) {
+      first = first.next;
+      second = second.next;
     }
-    if (head == current && last == null) {
-      head = head.next;
-    } else {
-      current.next = current.next.next;
-    }
-    return head;
+    second.next = second.next.next;
+    return dummy.next;
   }
 }

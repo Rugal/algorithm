@@ -21,111 +21,138 @@ package ga.rugal.leetcode.redundantconnectionii;
  * @author rugalbernstein
  */
 public class Solution {
-    /*
-    We still use unionFind to solve this question, but it has two kind of cases
-    Case 1: No duplicate parents, return the first edge that creates the loop --> Same as 684
-    Case 2: A node has two parents {u1, u2}
-        2.1: return the second edge that creates duplicate parents (no loop). Example:[[1,2], [1,3], [2,3]]
-                      1
-                     / \
-                    v   v
-                    2-->3    Node 3 has two parents: 1 and 2. Remove any one of the edge satisfy the question. But we need to remove the one that occurs the last.
-        2.2: return edge {u1, v} or edge {u2, v} that creates the loop. Example:[[2,1],[3,1],[4,2],[1,4]]
-                    2----> 1 <-- 3
-                    \     /
-                     \   /
-                      \-4    Node 1 has two parents. We have to remove either {2,1} or {3,1}. {2,1} is the one that creates the loop. So we remove {2,1}
 
-	So our algorithm uses two loops: First loop to detect if there is any duplicate parents.
-	2nd loop to detect if there is any loop in the graph.
-    */
-  static class UnionFind {
+  private static class UnionFindSet {
 
-    int[] parents;
+    private final int[] rank;
 
-    public UnionFind(int N) {
-      parents = new int[N];
-      for (int i = 0; i < N; i++) {
-        parents[i] = i;
+    private final int[] parent;
+
+    public UnionFindSet(final int n) {
+      this.rank = new int[n + 1];
+      this.parent = new int[n + 1];
+
+      for (int i = 0; i < this.parent.length; ++i) {
+        this.parent[i] = i;
       }
     }
 
-    public void union(int x, int y) {
-      parents[find(x)] = find(y);
+    /**
+     * Find the representative of element.
+     *
+     * @param i
+     *
+     * @return
+     */
+    int find(final int u) {
+      if (u != this.parent[u]) {
+        this.parent[u] = this.find(this.parent[u]);
+      }
+      return this.parent[u];
     }
 
-    public int find(int x) {
-      if (x != parents[x]) {
-        parents[x] = find(parents[x]);
+    /**
+     * Union 2 element into one set by rank and path compression.
+     *
+     * @param left
+     * @param right
+     *
+     * @return false if the 2 elements are already in one set, otherwise return true
+     */
+    boolean union(final int left, final int right) {
+      final int x = this.find(left);
+      final int y = this.find(right);
+      if (x == y) {
+        //no merge need
+        return false;
       }
-      return parents[x];
+      if (this.rank[y] > this.rank[x]) {
+        this.parent[x] = y;
+        return true;
+      }
+      if (this.rank[y] < this.rank[x]) {
+        this.parent[y] = x;
+        return true;
+      }
+      this.parent[y] = x;
+      ++this.rank[x];
+      return true;
     }
   }
 
+  /**
+   * Case 1: No duplicate parent<BR>
+   * [[1, 2], [2, 3], [3, 1]] or [[1, 2], [2, 3], [3, 4], [4, 1]]<BR>
+   * This is the same problem as the original question. Simply use UnionSet to find the last path
+   * that cause circle<BR>
+   *
+   * Case 2: Has duplicate parent<BR>
+   * Case 2.1: No circle<BR>
+   * [[1, 2], [2, 3], [1, 3]]<BR>
+   * Remove any one of the edge satisfy the question. Just remove the last edge.<BR>
+   * Case 2.2: Has circle<BR>
+   * [[1, 2], [2, 3], [3, 1], [4, 1]]<BR>
+   * In this case, we remove the last edge that creates the circle, which is [3, 1]
+   *
+   *
+   * @param edges
+   *
+   * @return
+   */
   public int[] findRedundantDirectedConnection(final int[][] edges) {
-    int[] edge1 = new int[2];
-    int[] edge2 = new int[2];
-    {
-      /*
-       * Possible two edges(Two parents) in cases 2.
-       */
-      final int[] parent = new int[edges.length + 1];
-      for (int[] edge : edges) {
-        /*
-         * First loop to detect if there is duplicate parents
-         */
-        final int nodeU = edge[0];
-        final int nodeV = edge[1];
-        if (parent[nodeV] > 0) {
-          /*
-           * there is duplicate parents
-           */
-          edge1 = new int[]{parent[nodeV], nodeV};
-          /*
-           * Add previous/first edge
-           */
-          edge2 = new int[]{nodeU, nodeV};/*
-           * Add 2nd edge
-           */
-          edge[0] = -1;
-          edge[1] = -1;
-          /*
-           * Delete the 2nd edge first
-           */
-        }
-        parent[nodeV] = nodeU;
-      }
-    }
-    final UnionFind uf = new UnionFind(edges.length + 1);
+    final int[] parentEdge = new int[2];
+    final int[] deletedEdge = new int[2];
+    this.hasDuplicateParent(edges, parentEdge, deletedEdge);
+
+    //Union Find Set is not directed, it only knows who belongs to where
+    final UnionFindSet set = new UnionFindSet(edges.length + 1);
     for (int[] edge : edges) {
-      int nodeU = edge[0];
-      int nodeV = edge[1];
-      if (nodeU < 0 || nodeV < 0) {
+      if (edge[0] < 0 || edge[1] < 0) {
+        //Skip this edge as it was deleted
         continue;
-        /*
-         * This is for the deleted edge we have done in first loop.
-         */
       }
-      int rootU = uf.find(nodeU);
-      int rootV = uf.find(nodeV);
-      if (rootU == rootV) {
-        /*
-         * Since we already deleted the 2nd edge, then it must be edge1. If edge1 is not assigned
-         * with any values.
-         */
-        return edge1[0] == 0
-               ? new int[]{nodeU, nodeV}
-               : edge1;
-        /*
-         * Then it means there is no duplicate parents. So case1: return current detected edge.
-         */
+      //since we already deleted the second edge
+      //so the edge that forms the circle must be the edge1 or current
+      //whether it is the parentEdge or current edge is depending on the duplication detection that we did before
+      if (set.find(edge[0]) == set.find(edge[1])) {
+        return parentEdge[0] == 0
+               ? new int[]{edge[0], edge[1]} //case   1: no duplication
+               : parentEdge;                 //case 2.2: duplicate but no circle
       }
-      uf.union(nodeU, nodeV);
+      set.union(edge[0], edge[1]);
     }
-    return edge2;
-    /*
-     * If reached here, it means there is no loop detected, otherwise it would return at 2nd loop in
-     * our code. So case 2.1, return 2nd edge.
-     */
+    //case 2.1: no circle detected because we deleted one edge
+    //so the edge deleted is the answer
+    return deletedEdge;
+  }
+
+  /**
+   * Detect duplicate parent edge in graph.<BR>
+   * Keep the first edge that forms the duplication, but delete the second one.<BR>
+   *
+   * @param edges
+   * @param edge1
+   * @param edge2
+   */
+  private void hasDuplicateParent(final int[][] edges, final int[] edge1, final int[] edge2) {
+    //Possible two edges(Two parents) in cases 2.
+    final int[] parent = new int[edges.length + 1];
+    for (int[] edge : edges) {
+      final int nodeU = edge[0];
+      final int nodeV = edge[1];
+      //there is duplicate parents
+      if (parent[nodeV] > 0) {
+        //keep first edge
+        edge1[0] = parent[nodeV];
+        edge1[1] = nodeV;
+        //Add 2nd edge somewhere because we are going to delete them
+        edge2[0] = nodeU;
+        edge2[1] = nodeV;
+        //Delete the 2nd edge
+        edge[0] = -1;
+        edge[1] = -1;
+      }
+      parent[nodeV] = nodeU;
+    }
   }
 }

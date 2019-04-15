@@ -47,6 +47,13 @@ public class Solution {
       }
     }
 
+    /**
+     * Find the representative of element.
+     *
+     * @param i
+     *
+     * @return
+     */
     int find(final int u) {
       if (u != this.parent[u]) {
         this.parent[u] = this.find(this.parent[u]);
@@ -54,23 +61,31 @@ public class Solution {
       return this.parent[u];
     }
 
+    /**
+     * Union 2 element into one set by rank and path compression.
+     *
+     * @param left
+     * @param right
+     *
+     * @return false if the 2 elements are already in one set, otherwise return true
+     */
     boolean union(final int left, final int right) {
-      final int leftSide = this.find(left);
-      final int rightSide = this.find(right);
-      if (leftSide == rightSide) {
+      final int x = this.find(left);
+      final int y = this.find(right);
+      if (x == y) {
         //no merge need
         return false;
       }
-      if (this.rank[rightSide] > this.rank[leftSide]) {
-        this.parent[leftSide] = rightSide;
+      if (this.rank[y] > this.rank[x]) {
+        this.parent[x] = y;
         return true;
       }
-      if (this.rank[rightSide] < this.rank[leftSide]) {
-        this.parent[rightSide] = leftSide;
+      if (this.rank[y] < this.rank[x]) {
+        this.parent[y] = x;
         return true;
       }
-      this.parent[rightSide] = leftSide;
-      ++this.rank[leftSide];
+      this.parent[y] = x;
+      ++this.rank[x];
       return true;
     }
   }
