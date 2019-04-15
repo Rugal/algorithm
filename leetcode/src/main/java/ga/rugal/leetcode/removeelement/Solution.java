@@ -22,6 +22,14 @@ package ga.rugal.leetcode.removeelement;
  */
 public class Solution {
 
+  /**
+   * similar to https://leetcode.com/problems/remove-duplicates-from-sorted-array/
+   *
+   * @param nums
+   * @param val
+   *
+   * @return
+   */
   public int removeElement(final int[] nums, final int val) {
     int unmatch = 0;
     for (int i = 0; i < nums.length; ++i) {

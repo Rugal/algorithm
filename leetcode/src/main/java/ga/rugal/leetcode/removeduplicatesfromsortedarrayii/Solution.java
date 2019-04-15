@@ -16,20 +16,30 @@
 package ga.rugal.leetcode.removeduplicatesfromsortedarrayii;
 
 /**
+ * https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
  *
  * @author rugal
  */
 public class Solution {
 
+  /**
+   * Up to 2 times of duplication.
+   *
+   * @param nums
+   *
+   * @return
+   */
   public int removeDuplicates(final int[] nums) {
     boolean first = true;
     int length = 0;
     for (int i = 0; i < nums.length; ++i) {
-      if (i == 0 || nums[i] != nums[length - 1]) {
+      if (i == 0
+          || nums[i] != nums[length - 1]) {//if nums[i] is different from the last added number
         first = true;
         nums[length++] = nums[i];
         continue;
       }
+      //have seen this number, but will add it again
       if (first) {
         first = false;
         nums[length++] = nums[i];
