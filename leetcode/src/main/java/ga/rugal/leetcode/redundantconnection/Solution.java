@@ -69,7 +69,7 @@ public class Solution {
         return true;
       }
       this.parent[pv] = pu;
-      ++this.rank[pv];
+      ++this.rank[pu];
       return true;
     }
   }

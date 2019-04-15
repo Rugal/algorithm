@@ -26,6 +26,13 @@ import java.util.List;
 public class Solution {
 
   public String getPermutation(final int n, final int k) {
+    //(n-1)! is the # of permutations if the 1st digit is done..
+    //(n-2)! is the # of permutation  if the 2nd digit is done..
+    //i.e. in a 1-dimensional array, there are N sets of (N-1)! entries,
+    //and in each of those (N-1)! entries, there are (N-1) sets of (N-2)! entries...and so on.
+    //so, this is a problem of progressiely dividing k to find where it falls in this array,
+    //and expressing the k as the offsets at each level, which will indirectly be the sequence we desire
+
     final int[] fact = new int[n + 1];
     final List<Integer> number = new ArrayList<>();
 
