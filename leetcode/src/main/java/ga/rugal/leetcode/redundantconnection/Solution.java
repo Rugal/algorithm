@@ -54,22 +54,23 @@ public class Solution {
       return this.parent[u];
     }
 
-    boolean union(final int u, final int v) {
-      final int pu = this.find(u);
-      final int pv = this.find(v);
-      if (pu == pv) {
+    boolean union(final int left, final int right) {
+      final int leftSide = this.find(left);
+      final int rightSide = this.find(right);
+      if (leftSide == rightSide) {
+        //no merge need
         return false;
       }
-      if (this.rank[pv] > this.rank[pu]) {
-        this.parent[pu] = pv;
+      if (this.rank[rightSide] > this.rank[leftSide]) {
+        this.parent[leftSide] = rightSide;
         return true;
       }
-      if (this.rank[pv] < this.rank[pu]) {
-        this.parent[pv] = pu;
+      if (this.rank[rightSide] < this.rank[leftSide]) {
+        this.parent[rightSide] = leftSide;
         return true;
       }
-      this.parent[pv] = pu;
-      ++this.rank[pu];
+      this.parent[rightSide] = leftSide;
+      ++this.rank[leftSide];
       return true;
     }
   }
