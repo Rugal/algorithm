@@ -18,13 +18,14 @@ public class Solution {
     if (1 == rowIndex) {
       return Arrays.asList(1, 1);
     }
+    //recursion
     final List<Integer> previous = this.getRow(rowIndex - 1);
     final List<Integer> result = new ArrayList<>();
-    result.add(1);
+    result.add(1);//the 1 at left
     for (int i = 1; i < previous.size(); ++i) {
       result.add(previous.get(i - 1) + previous.get(i));
     }
-    result.add(1);
+    result.add(1);//the 1 at right
     return result;
   }
 }

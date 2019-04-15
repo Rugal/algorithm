@@ -22,29 +22,36 @@ package ga.rugal.leetcode.nextpermutation;
  */
 public class Solution {
 
-  public void nextPermutation(int[] nums) {
+  /**
+   * To find next permutation, the easiest way is:<BR>
+   * 1. Find first decreasing number x from backward order<BR>
+   * 2. Start from there, find the first number that is "just" bigger than x<BR>
+   * 3. Swap them<BR>
+   * 4. Reverse numbers after x
+   *
+   * @param nums
+   */
+  public void nextPermutation(final int[] nums) {
     int i = nums.length - 2;
-    //find i that [i] < [i+1]
+    //start from end of array, find the first number i that is decreasing
     while (i >= 0 && nums[i + 1] <= nums[i]) {
       i--;
     }
     if (i >= 0) {
       int j = nums.length - 1;
       //find first j from tail that [j] > [i]
-      while (j >= 0 && nums[j] <= nums[i]) {
-        j--;
-      }
-      swap(nums, i, j);
+      for (; j >= 0 && nums[j] <= nums[i]; --j);
+      this.swap(nums, i, j);
       //so now [i] <-> [j]
       //from head, it is one digit larger than before
     }
-    reverse(nums, i + 1);
+    this.reverse(nums, i + 1);
   }
 
-  private void reverse(int[] nums, int start) {
+  private void reverse(final int[] nums, final int start) {
     int i = start, j = nums.length - 1;
     while (i < j) {
-      swap(nums, i, j);
+      this.swap(nums, i, j);
       i++;
       j--;
     }

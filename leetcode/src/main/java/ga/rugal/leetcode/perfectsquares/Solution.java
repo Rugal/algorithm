@@ -23,31 +23,34 @@ package ga.rugal.leetcode.perfectsquares;
  */
 public class Solution {
 
+  /**
+   * just like coin change.
+   *
+   * @param n
+   *
+   * @return
+   */
   public int numSquares(int n) {
-    //just like coin change
     //this is to initialize all coins available
     final int[] square = new int[n + 1];
-    for (int i = 1; i * i <= n; ++i) {
+    for (int i = 0; i <= n; ++i) {
       square[i] = i * i;
-      if (n == square[i]) {
+      if (square[i] == n) {
         return 1;
       }
     }
-
-    final int[] dp = new int[n + 1];
-    dp[0] = 0;
-    for (int i = 1; i < dp.length; i++) {
-      dp[i] = Integer.MAX_VALUE;
-      for (int j = 0; j < square.length; j++) {
-        if (i - square[j] >= 0 // if this amount is valid
-            && dp[i - square[j]] != Integer.MAX_VALUE //if subproblem is solved
-            && dp[i] > dp[i - square[j]] + 1) { //if this solution is better
-
-          dp[i] = dp[i - square[j]] + 1;
+    final int[] result = new int[n + 1];
+    for (int i = 1; i < result.length; ++i) {
+      result[i] = Integer.MAX_VALUE;
+      // if this amount is valid
+      for (int j = 0; i >= square[j] && j < square.length; ++j) {
+        final int value = result[i - square[j]];
+        if (value != Integer.MAX_VALUE//if subproblem is solved
+            && value + 1 < result[i]) {//if this solution is better
+          result[i] = value + 1;
         }
       }
     }
-
-    return dp[n] == Integer.MAX_VALUE ? -1 : dp[n];
+    return result[n];
   }
 }

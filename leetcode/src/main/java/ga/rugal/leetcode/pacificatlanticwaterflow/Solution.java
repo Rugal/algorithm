@@ -38,8 +38,8 @@ public class Solution {
     if (matrix.length == 0 || matrix[0].length == 0) {
       return result;
     }
-    final boolean[][] pacific = new boolean[matrix.length][matrix[0].length];  // the pacific boolean table
-    final boolean[][] atlantic = new boolean[matrix.length][matrix[0].length]; // the atlantic booean table
+    final boolean[][] pacific = new boolean[matrix.length][matrix[0].length];
+    final boolean[][] atlantic = new boolean[matrix.length][matrix[0].length];
     //initially, all the top and left cells are flooded with pacific water
     //and all the right and bottom cells are flooded with atlantic water
     //we go around the matrix and try to flood the matrix from 4 side.

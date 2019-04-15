@@ -25,11 +25,15 @@ public class Solution {
   public int minCut(final String s) {
     final char[] c = s.toCharArray();
     final int[] cut = new int[c.length];
+    //means string [x, y] is palindrome or not
     final boolean[][] pal = new boolean[c.length][c.length];
 
     for (int i = 0; i < c.length; i++) {
+      //initial minimum cut, cut at every character
       int min = i;
       for (int j = 0; j <= i; j++) {
+        //since [j+1, i-1] is palindrome already, and [i] == [j]
+        //so [j, i] is palindrome as well
         if (c[j] == c[i]//if [j] == [i] is same
             && (j + 1 > i - 1 || pal[j + 1][i - 1])) { // and [j+1, i-1] is palindrome as well
           //means [j, i] is palidrome
