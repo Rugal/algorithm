@@ -26,6 +26,21 @@ public class Solution {
     for (int left = 0, right = nums.length; left < right;) {
       final int mid = (left + right) / 2;
 
+      /*
+       * [ ] [             ]
+       * 8 9 0 1 2 3 4 5 6 7
+       *         *
+       *         mid
+       * if mid and target is on the different side, set the mid number as MIN or MAX depending
+       * on the side of mid
+       */
+
+      /*
+       * [           ] [   ]
+       * 3 4 5 6 7 8 9 0 1 2
+       *         *
+       *         mid
+       */
       final int number = (nums[0] > nums[mid]) == (nums[0] > target)
                          ? nums[mid]
                          : target < nums[0] ? Integer.MIN_VALUE : Integer.MAX_VALUE;

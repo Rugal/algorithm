@@ -22,6 +22,14 @@ package ga.rugal.leetcode.searchinrotatedsortedarrayii;
  */
 public class Solution {
 
+  /**
+   * 3 4 4 5 6 7 8 9 0 1 1 2 3<BR>
+   * Unable to use the original solution because the first and last element can be same
+   *
+   * @param nums
+   * @param target
+   * @return
+   */
   public boolean search(final int[] nums, final int target) {
     // note here end is initialized to len instead of (len-1)
     int start = 0, end = nums.length;

@@ -22,6 +22,14 @@ package ga.rugal.leetcode.searchinsertposition;
  */
 public class Solution {
 
+  /**
+   * Use binary search.
+   *
+   * @param nums
+   * @param target
+   *
+   * @return
+   */
   public int searchInsert(final int[] nums, final int target) {
     int right = nums.length - 1;
     for (int left = 0; left < right;) {

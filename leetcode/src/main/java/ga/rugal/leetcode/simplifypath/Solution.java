@@ -28,6 +28,13 @@ public class Solution {
 
   private static final String CURRENT = ".";
 
+  /**
+   * Stack idea.
+   *
+   * @param path
+   *
+   * @return
+   */
   public String simplifyPath(final String path) {
     final Stack<String> stack = new Stack<>();
     for (String s : path.split("/")) {
