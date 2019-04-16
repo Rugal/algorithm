@@ -22,7 +22,14 @@ package ga.rugal.leetcode.spiralmatrixii;
  */
 public class Solution {
 
-  public int[][] generateMatrix(int n) {
+  /**
+   * Same as original question, but to increment the count.
+   *
+   * @param n
+   *
+   * @return
+   */
+  public int[][] generateMatrix(final int n) {
     if (n == 0) {
       return null;
     }

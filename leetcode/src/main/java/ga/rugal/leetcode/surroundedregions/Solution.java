@@ -28,6 +28,13 @@ public class Solution {
 
   private char[][] board;
 
+  /**
+   * First flip the O or border to something else(R).<BR>
+   * Then flip all O in map to X.<BR>
+   * Lastly flip R back to O
+   *
+   * @param b
+   */
   public void solve(final char[][] b) {
     this.board = b;
 
@@ -36,22 +43,22 @@ public class Solution {
     }
 
     for (int i = 0; i < this.board.length; ++i) {
-      flip(i, 0, 'O', 'R');
-      flip(i, this.board[0].length - 1, 'O', 'R');
+      this.flip(i, 0, 'O', 'R');
+      this.flip(i, this.board[0].length - 1, 'O', 'R');
     }
     for (int i = 0; i < this.board[0].length; ++i) {
-      flip(0, i, 'O', 'R');
-      flip(this.board.length - 1, i, 'O', 'R');
+      this.flip(0, i, 'O', 'R');
+      this.flip(this.board.length - 1, i, 'O', 'R');
     }
 
     for (int i = 0; i < this.board.length; ++i) {
       for (int j = 0; j < this.board[0].length; ++j) {
-        flip(i, j, 'O', 'X');
+        this.flip(i, j, 'O', 'X');
       }
     }
     for (int i = 0; i < this.board.length; ++i) {
       for (int j = 0; j < this.board[0].length; ++j) {
-        flip(i, j, 'R', 'O');
+        this.flip(i, j, 'R', 'O');
       }
     }
   }
@@ -65,7 +72,7 @@ public class Solution {
     this.board[row][column] = to;
 
     for (int i = 0; i < X.length; ++i) {
-      flip(row + X[i], column + Y[i], from, to);
+      this.flip(row + X[i], column + Y[i], from, to);
     }
   }
 }

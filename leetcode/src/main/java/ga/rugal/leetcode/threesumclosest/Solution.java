@@ -3,13 +3,22 @@ package ga.rugal.leetcode.threesumclosest;
 import java.util.Arrays;
 
 /**
+ * https://leetcode.com/problems/3sum-closest/
  *
  * @author Rugal Bernstein
  */
 public class Solution {
 
-  public int threeSumClosest(int[] nums, int target) {
-
+  /**
+   * Similar to the original question, but to go through all possible combination.<BR>
+   * See what's the closest summation to target.
+   *
+   * @param nums
+   * @param target
+   *
+   * @return
+   */
+  public int threeSumClosest(final int[] nums, final int target) {
     Arrays.sort(nums);
     int sum = 0;
     int min = Integer.MAX_VALUE;

@@ -19,8 +19,7 @@ public class Solution {
     this.map.put('[', ']');
   }
 
-  public boolean isValid(String s) {
-
+  public boolean isValid(final String s) {
     final Stack<Character> stack = new Stack<>();
     for (int i = 0; i < s.length(); ++i) {
       final char c = s.charAt(i);

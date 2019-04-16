@@ -22,11 +22,20 @@ package ga.rugal.leetcode.sortcolors;
  */
 public class Solution {
 
+  /**
+   * Very smart approach.
+   *
+   * @param nums
+   */
   public void sortColors(final int[] nums) {
+    //keep 2 index
     int zero = 0;
     int one = 0;
     for (int i = 0; i < nums.length; ++i) {
       final int current = nums[i];
+      //keep updating  all indexes if actual value is less or equal than the corresponding threshold
+      //and also set the element as threshold
+      //as this value will be overriden by the real answer anyway
       nums[i] = 2;
       if (current < 2) {
         nums[one++] = 1;

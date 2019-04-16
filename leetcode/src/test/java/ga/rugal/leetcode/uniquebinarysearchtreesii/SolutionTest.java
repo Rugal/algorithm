@@ -13,26 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ga.rugal.leetcode.validnumber;
+package ga.rugal.leetcode.uniquebinarysearchtreesii;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 /**
- * https://leetcode.com/problems/valid-number/
  *
  * @author rugal
  */
-public class Solution {
+@RunWith(Parameterized.class)
+public class SolutionTest {
 
-  public boolean isNumber(String s) {
-    try {
-      s = s.trim();
-      int n = s.length();
-      if (n == 0 || (s.charAt(n - 1) != '.' && (s.charAt(n - 1) - '0' < 0 || s.charAt(n - 1) - '0' > 9))) {
-        return false;
-      }
-      Double.parseDouble(s);
-      return true;
-    } catch (NumberFormatException e) {
-      return false;
-    }
+  private final Solution solution = new Solution();
+
+  @Parameterized.Parameters
+  public static Collection<Object[]> data() {
+    return Arrays.asList(new Object[][]{
+      {2},
+      {3},});
+  }
+
+  @Parameterized.Parameter(0)
+  public int input;
+
+  @Test
+  public void testGenerateTrees() {
+    this.solution.generateTrees(this.input);
   }
 }

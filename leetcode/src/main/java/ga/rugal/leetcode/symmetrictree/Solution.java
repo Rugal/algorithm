@@ -28,8 +28,8 @@ import ga.rugal.leetcode.TreeNode;
 public class Solution {
 
   public boolean isSymmetric(final TreeNode root) {
-//    return this.isSymmetricRecursive(root, root);
-    return this.isSymmetricIterative(root);
+    return this.isSymmetricRecursive(root, root)
+           && this.isSymmetricIterative(root);
   }
 
   private boolean isSymmetricRecursive(final TreeNode left, final TreeNode right) {
@@ -45,7 +45,7 @@ public class Solution {
            && this.isSymmetricRecursive(left.right, right.left);
   }
 
-  private boolean isSymmetricIterative(TreeNode root) {
+  private boolean isSymmetricIterative(final TreeNode root) {
     final Queue<TreeNode> q = new LinkedList<>();
     q.add(root);
     q.add(root);

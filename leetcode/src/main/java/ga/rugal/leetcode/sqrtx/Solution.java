@@ -22,7 +22,7 @@ package ga.rugal.leetcode.sqrtx;
  */
 public class Solution {
 
-  public int mySqrt(int x) {
+  public int mySqrt(final int x) {
     if (x == 0) {
       return 0;
     }
@@ -41,6 +41,15 @@ public class Solution {
     return left;
   }
 
+  /**
+   * Just to check if {@code i^2 <= target < i+1^2}<BR>
+   * Use division to avoid overflow.
+   *
+   * @param i
+   * @param target
+   *
+   * @return
+   */
   private boolean check(final int i, final int target) {
     return (i <= target / i) && ((i + 1) > target / (i + 1));
   }

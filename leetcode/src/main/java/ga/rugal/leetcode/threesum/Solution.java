@@ -5,11 +5,19 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * https://leetcode.com/problems/3sum/
  *
  * @author Rugal Bernstein
  */
 public class Solution {
 
+  /**
+   * Fix one number and move the other 2 pointers according to the relative size.
+   *
+   * @param nums
+   *
+   * @return
+   */
   public List<List<Integer>> threeSum(int[] nums) {
 
     final List<List<Integer>> result = new ArrayList<>();
@@ -29,10 +37,12 @@ public class Solution {
           result.add(Arrays.asList(nums[i], nums[left], nums[right]));
         }
         if (sum <= 0) {
+          //move all the way to right if the number is the same
           while (nums[left] == nums[++left] && left < right);
         }
         if (sum >= 0) {
-          //java always uses new value from memory
+          //java always uses latest value from memory
+          //move all the way to left if the number is the same
           while (nums[right--] == nums[right] && left < right);
         }
       }

@@ -36,6 +36,6 @@ public class SolutionTest {
 
   @Test
   public void testMyAtoi() {
-    Assert.assertEquals(this.target, this.solution.myAtoi(this.input));
+    Assert.assertEquals(this.target, this.solution.myAtoi2(this.input));
   }
 }
