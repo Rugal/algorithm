@@ -15,9 +15,6 @@
  */
 package ga.rugal.leetcode.pathsum;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 import ga.rugal.leetcode.TreeNode;
 
 /**
@@ -31,34 +28,16 @@ public class Solution {
     if (null == root) {
       return false;
     }
-    final Queue<Pair> queue = new LinkedList<>();
-    queue.offer(new Pair(root, root.val));
-    while (!queue.isEmpty()) {
-      final Pair top = queue.poll();
-      if (top.node.left == null
-          && top.node.right == null
-          && top.sum == sum) {
-        return true;
-      }
-      if (null != top.node.left) {
-        queue.offer(new Pair(top.node.left, top.sum + top.node.left.val));
-      }
-      if (null != top.node.right) {
-        queue.offer(new Pair(top.node.right, top.sum + top.node.right.val));
-      }
-    }
-    return false;
+    return this.dfs(root, sum);
   }
 
-  static class Pair {
-
-    public final TreeNode node;
-
-    public final int sum;
-
-    public Pair(final TreeNode node, final int sum) {
-      this.node = node;
-      this.sum = sum;
+  private boolean dfs(final TreeNode root, final int sum) {
+    if (null == root.left && null == root.right) {
+      return sum - root.val == 0;
     }
+    if (root.left == null || root.right == null) {
+      return this.dfs(root.left == null ? root.right : root.left, sum - root.val);
+    }
+    return this.dfs(root.left, sum - root.val) || this.dfs(root.right, sum - root.val);
   }
 }
