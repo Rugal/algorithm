@@ -33,6 +33,14 @@ public class Solution {
 
   private final Map<String, List<String>> map = new HashMap<>();
 
+  /**
+   * To enhance performance, here we use map to cache repeated result.
+   *
+   * @param s
+   * @param wordDict
+   *
+   * @return
+   */
   public List<String> wordBreak(String s, List<String> wordDict) {
     if (s.length() == 0) {
       return new ArrayList<>();
@@ -51,7 +59,7 @@ public class Solution {
    * @return
    */
   public List<String> dfs(final String s) {
-    // retrieve memo from map cache
+    // get string directly if key is cached
     if (map.containsKey(s)) {
       return map.get(s);
     }
@@ -62,13 +70,13 @@ public class Solution {
       result.add(s);
     }
 
-    // try every possible prefix string, and recursively check postfix string
+    // try every possible prefix string, and recursively check suffix string
     for (int i = 1; i < s.length(); i++) {
       final String prefix = s.substring(0, i);
       if (set.contains(prefix)) {
-        final List<String> tempList = this.dfs(s.substring(i));
-        for (int j = 0; j < tempList.size(); j++) {
-          result.add(prefix + " " + tempList.get(j));
+        //after prefix, search the words in rest string
+        for (String l : this.dfs(s.substring(i))) {
+          result.add(prefix + " " + l);
         }
       }
     }

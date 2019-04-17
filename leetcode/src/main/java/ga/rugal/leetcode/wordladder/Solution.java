@@ -28,6 +28,14 @@ public class Solution {
     }
   }
 
+  /**
+   * To get word like X_Y
+   *
+   * @param word
+   * @param i
+   *
+   * @return
+   */
   private String getWord(final String word, final int i) {
     return String.format("%s_%s", word.substring(0, i), word.substring(i + 1));
   }
@@ -62,12 +70,14 @@ public class Solution {
    *
    * @return
    */
-  private int bfs(String beginWord, String endWord, Map<String, List<String>> map) {
+  private int bfs(final String beginWord,
+                  final String endWord,
+                  final Map<String, List<String>> map) {
     final Deque<Pair> pairs = new ArrayDeque<>();
     final Set<String> visited = new HashSet<>();
     pairs.add(new Pair(beginWord, 1));
     while (!pairs.isEmpty()) {
-      Pair pair = pairs.poll();
+      final Pair pair = pairs.poll();
       if (visited.contains(pair.word)) {
         //we have seen this word
         continue;
@@ -89,7 +99,9 @@ public class Solution {
     return 0;
   }
 
-  public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+  public int ladderLength(final String beginWord,
+                          final String endWord,
+                          final List<String> wordList) {
     return this.bfs(beginWord, endWord, this.build(wordList));
   }
 }
