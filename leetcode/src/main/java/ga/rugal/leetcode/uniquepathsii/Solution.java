@@ -22,22 +22,31 @@ package ga.rugal.leetcode.uniquepathsii;
  */
 public class Solution {
 
+  /**
+   * DP.
+   *
+   * @param obstacleGrid
+   *
+   * @return
+   */
   public int uniquePathsWithObstacles(final int[][] obstacleGrid) {
     final int row = obstacleGrid.length;
     final int column = obstacleGrid[0].length;
 
+    //stop here if the final grid is blocked
     if (obstacleGrid[row - 1][column - 1] == 1) {
       return 0;
     }
 
-    int[][] value = new int[row][column];
+    final int[][] value = new int[row][column];
+    //initialize the right most and bottom most to 1
+    //because we can only move to one direction anyway
     value[row - 1][column - 1] = 1;
     for (int i = row - 2; i >= 0; i--) {
       if (0 == obstacleGrid[i][column - 1]) {
         value[i][column - 1] = value[i + 1][column - 1];
       }
     }
-
     for (int i = column - 2; i >= 0; i--) {
       if (0 == obstacleGrid[row - 1][i]) {
         value[row - 1][i] = value[row - 1][i + 1];
@@ -46,10 +55,10 @@ public class Solution {
 
     for (int i = row - 2; i >= 0; i--) {
       for (int j = column - 2; j >= 0; j--) {
-        if (obstacleGrid[i][j] == 1) {
-          continue;
+        if (obstacleGrid[i][j] != 1) {
+          //is the summation of right and down
+          value[i][j] = value[i][j + 1] + value[i + 1][j];
         }
-        value[i][j] = value[i][j + 1] + value[i + 1][j];
       }
     }
 
