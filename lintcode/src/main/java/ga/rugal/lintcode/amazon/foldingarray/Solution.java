@@ -15,15 +15,16 @@
  */
 package ga.rugal.lintcode.amazon.foldingarray;
 
-/**
- * https://www.lintcode.com/problem/folding-array/description
- *
- * @author rugalbernstein
- */
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * https://www.lintcode.com/problem/folding-array/description
+ * https://www.jiuzhang.com/solution/folding-array/
+ *
+ * @author rugalbernstein
+ */
 public class Solution {
 
   /*
