@@ -15,37 +15,81 @@
  */
 package ga.rugal.lintcode.amazon.optimalutilization;
 
-import ga.rugal.lintcode.TreeNode;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import org.assertj.core.util.Lists;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 /**
  *
  * @author rugal
  */
+@RunWith(Parameterized.class)
 public class SolutionTest {
 
   private final Solution solution = new Solution();
 
-  public TreeNode root = new TreeNode(1);
-
-  @Before
-  public void setUp() {
-    this.root.left = new TreeNode(-5);
-    this.root.left.left = new TreeNode(1);
-    this.root.left.right = new TreeNode(2);
-
-    this.root.right = new TreeNode(11);
-    this.root.right.left = new TreeNode(4);
-    this.root.right.right = new TreeNode(-2);
+  @Parameterized.Parameters
+  public static Collection<Object[]> data() {
+    return Arrays.asList(new Object[][]{
+      {20,
+       Lists.list(Lists.list(1, 8),
+                  Lists.list(2, 7),
+                  Lists.list(3, 14)),
+       Lists.list(Lists.list(1, 5),
+                  Lists.list(2, 10),
+                  Lists.list(3, 14))
+      },
+      {20,
+       Lists.list(Lists.list(1, 8),
+                  Lists.list(2, 7),
+                  Lists.list(3, 14)),
+       Lists.list(Lists.list(1, 5),
+                  Lists.list(2, 10),
+                  Lists.list(3, 14),
+                  Lists.list(4, 6))
+      },
+      {20,
+       Lists.list(Lists.list(1, 8),
+                  Lists.list(2, 7),
+                  Lists.list(3, 14),
+                  Lists.list(4, 14)),
+       Lists.list(Lists.list(1, 5),
+                  Lists.list(2, 10),
+                  Lists.list(3, 14))
+      },
+      {1,
+       Lists.list(Lists.list(1, 8),
+                  Lists.list(2, 7),
+                  Lists.list(3, 14),
+                  Lists.list(4, 14)),
+       Lists.list(Lists.list(1, 5),
+                  Lists.list(2, 10),
+                  Lists.list(3, 14))
+      }});
   }
+
+  @Parameterized.Parameter(0)
+  public int input;
+
+  @Parameterized.Parameter(1)
+  public List<List<Integer>> forward;
+
+  @Parameterized.Parameter(2)
+  public List<List<Integer>> backward;
 
   @Test
   public void testOptimalUtilization() {
-    this.solution.optimalUtilization(20,
-                                     Lists.list(Lists.list(1, 8), Lists.list(2, 7), Lists.list(3, 14)),
-                                     Lists.list(Lists.list(1, 5), Lists.list(2, 10), Lists.list(3, 14)));
+    System.out.println("BEGIN");
+    for (List<Integer> list : this.solution.optimalUtilization(this.input, this.forward, this.backward)) {
+      for (int i : list) {
+        System.out.print(i + " ");
+      }
+      System.out.println();
+    }
   }
 }
