@@ -17,6 +17,7 @@ package ga.rugal.leetcode.minimumcosttomergestones;
 
 /**
  * https://leetcode.com/problems/minimum-cost-to-merge-stones/
+ * https://www.youtube.com/watch?v=FabkoUzs64o
  *
  * @author rugal
  */
