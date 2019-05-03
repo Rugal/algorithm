@@ -58,10 +58,11 @@ public class Solution {
     return root;
   }
 
-  private TreeNode leftChild(int l, int r) {
+  private TreeNode leftChild(final int l, final int r) {
 
     // Find Index
     int i = r;
+    //from right to left
     while (i >= l && preorder[p] != inorder[i]) {
       i--;
     }
@@ -70,7 +71,7 @@ public class Solution {
     }
 
     // Create Node & Children
-    TreeNode current = new TreeNode(preorder[p++]);
+    final TreeNode current = new TreeNode(preorder[p++]);
     if (i > l) {
       current.left = leftChild(l, i - 1);
     }
@@ -82,10 +83,11 @@ public class Solution {
     return current;
   }
 
-  private TreeNode rightChild(int l, int r) {
+  private TreeNode rightChild(final int l, final int r) {
 
     // Find Index
     int i = l;
+    //from left to right
     while (i <= r && preorder[p] != inorder[i]) {
       i++;
     }
@@ -94,7 +96,7 @@ public class Solution {
     }
 
     // Create Node & Children
-    TreeNode current = new TreeNode(preorder[p++]);
+    final TreeNode current = new TreeNode(preorder[p++]);
     if (i > l) {
       current.left = leftChild(l, i - 1);
     }
