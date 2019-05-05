@@ -32,20 +32,21 @@ public class Solution {
    * @param nums
    */
   public void nextPermutation(final int[] nums) {
-    int i = nums.length - 2;
+    int x = nums.length - 2;
     //start from end of array, find the first number i that is decreasing
-    while (i >= 0 && nums[i + 1] <= nums[i]) {
-      i--;
+    while (x >= 0 && nums[x + 1] <= nums[x]) {
+      x--;
     }
-    if (i >= 0) {
-      int j = nums.length - 1;
-      //find first j from tail that [j] > [i]
-      for (; j >= 0 && nums[j] <= nums[i]; --j);
-      this.swap(nums, i, j);
+    //it is not the largest number
+    if (x >= 0) {
+      int i = nums.length - 1;
+      //from the very right, find first j that [i] > [x]
+      for (; i >= 0 && nums[i] <= nums[x]; --i);
+      this.swap(nums, x, i);
       //so now [i] <-> [j]
       //from head, it is one digit larger than before
     }
-    this.reverse(nums, i + 1);
+    this.reverse(nums, x + 1);
   }
 
   private void reverse(final int[] nums, final int start) {
