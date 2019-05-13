@@ -25,7 +25,7 @@ import java.util.Map;
  */
 public class Solution {
 
-  public String minWindow(String s, String t) {
+  public String minWindow(final String s, final String t) {
 
     if (s.length() == 0 || t.length() == 0) {
       return "";
@@ -39,10 +39,7 @@ public class Solution {
     }
 
     // Number of unique characters in t, which need to be present in the desired window.
-    int required = dictT.size();
-
-    // Left and Right pointer
-    int l = 0, r = 0;
+    final int required = dictT.size();
 
     // formed is used to keep track of how many unique characters in t
     // are present in the current window in its desired frequency.
@@ -51,15 +48,16 @@ public class Solution {
     int formed = 0;
 
     // Dictionary which keeps a count of all the unique characters in the current window.
-    Map<Character, Integer> windowCounts = new HashMap<>();
+    final Map<Character, Integer> windowCounts = new HashMap<>();
 
     // ans list of the form (window length, left, right)
     int[] ans = {-1, 0, 0};
 
-    while (r < s.length()) {
+    // Left and Right pointer
+    for (int l = 0, r = 0; r < s.length();) {
       // Add one character from the right to the window
       char c = s.charAt(r);
-      int count = windowCounts.getOrDefault(c, 0);
+      final int count = windowCounts.getOrDefault(c, 0);
       windowCounts.put(c, count + 1);
 
       // If the frequency of the current character added equals to the

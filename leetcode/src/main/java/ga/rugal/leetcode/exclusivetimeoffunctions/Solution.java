@@ -30,6 +30,7 @@ public class Solution {
     final int[] result = new int[n];
     String[] s = logs.get(0).split(":");
     stack.push(Integer.parseInt(s[0]));
+    //the last time point that a function ends
     int previous = Integer.parseInt(s[2]);
     for (int i = 1; i < logs.size(); ++i) {
       s = logs.get(i).split(":");
@@ -37,6 +38,7 @@ public class Solution {
       if (s[1].equals("start")) {
         //start a new function
         if (!stack.isEmpty()) {
+          //add partial time because it is going to start another function
           result[stack.peek()] += time - previous;
         }
         stack.push(Integer.parseInt(s[0]));
