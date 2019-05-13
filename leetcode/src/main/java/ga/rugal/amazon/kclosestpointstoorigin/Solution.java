@@ -15,7 +15,7 @@
  */
 package ga.rugal.amazon.kclosestpointstoorigin;
 
-import java.util.Arrays;
+import java.util.PriorityQueue;
 
 /**
  * https://leetcode.com/problems/k-closest-points-to-origin/
@@ -25,7 +25,15 @@ import java.util.Arrays;
 public class Solution {
 
   public int[][] kClosest(int[][] points, int K) {
-    Arrays.sort(points, (a, b) -> -(b[0] * b[0] + b[1] * b[1]) + (a[0] * a[0] + a[1] * a[1]));
-    return Arrays.copyOfRange(points, 0, K);
+    final PriorityQueue<int[]> pq = new PriorityQueue<>((b, a) -> -(b[0] * b[0] + b[1] * b[1]) + (a[0] * a[0] + a[1] * a[1]));
+
+    for (int[] d : points) {
+      pq.offer(d);
+      if (pq.size() > K) {
+        pq.poll();
+      }
+    }
+
+    return pq.stream().toArray(int[][]::new);
   }
 }
