@@ -22,40 +22,34 @@ package ga.rugal.amazon.oneeditdistance;
  */
 public class Solution {
 
-  public boolean isOneEditDistance(String s, String t) {
-    return this.minDistance(s, t) == 1;
-  }
+  public boolean isOneEditDistance(final String s, final String t) {
+    final int ns = s.length();
+    final int nt = t.length();
 
-  private int minDistance(final String word1, final String word2) {
-
-    final int[][] dp = new int[word1.length() + 1][word2.length() + 1];
-
-    for (int i = 0; i <= word1.length(); i++) {
-      dp[i][0] = i;
+    // Ensure that s is shorter than t.
+    if (ns > nt) {
+      return this.isOneEditDistance(t, s);
     }
 
-    for (int j = 0; j <= word2.length(); j++) {
-      dp[0][j] = j;
+    // The strings are NOT one edit away distance
+    // if the length diff is more than 1.
+    if (nt - ns > 1) {
+      return false;
     }
 
-    //iterate though, and check last char
-    for (int i = 0; i < word1.length(); i++) {
-      final char c1 = word1.charAt(i);
-      for (int j = 0; j < word2.length(); j++) {
-        final char c2 = word2.charAt(j);
-
-        //if two chars equal
-        if (c1 == c2) {
-          //then the edit distance is the same as the one before
-          dp[i + 1][j + 1] = dp[i][j];
-          continue;
-        }
-        final int replace = dp[i][j] + 1;
-        final int insert = dp[i][j + 1] + 1;
-        final int delete = dp[i + 1][j] + 1;
-        dp[i + 1][j + 1] = Integer.min(delete, Integer.min(insert, replace));
+    for (int i = 0; i < ns; i++) {
+      // if there is a diff
+      if (s.charAt(i) != t.charAt(i)) {
+        return ns == nt
+               // we need to see if the rest of both string all matched
+               ? s.substring(i + 1).equals(t.substring(i + 1))
+               // need to see if small string matches rest of large string
+               : s.substring(i).equals(t.substring(i + 1));
       }
     }
-    return dp[word1.length()][word2.length()];
+
+    // If there is no diffs on ns distance the strings are one edit away
+    // only if t has one more character
+    return ns + 1 == nt;
   }
 }
