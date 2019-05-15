@@ -15,6 +15,8 @@
  */
 package ga.rugal.amazon.longestvalidparentheses;
 
+import java.util.Stack;
+
 /**
  * https://leetcode.com/problems/longest-valid-parentheses/
  *
@@ -51,4 +53,24 @@ public class Solution {
     }
     return maxlength;
   }
+
+  public int longestValidParenthesesStack(final String s) {
+    int maxans = 0;
+    Stack<Integer> stack = new Stack<>();
+    stack.push(-1);
+    for (int i = 0; i < s.length(); i++) {
+      if (s.charAt(i) == '(') {
+        stack.push(i);
+        continue;
+      }
+      stack.pop();
+      if (stack.empty()) {
+        stack.push(i);
+      } else {
+        maxans = Math.max(maxans, i - stack.peek());
+      }
+    }
+    return maxans;
+  }
+
 }

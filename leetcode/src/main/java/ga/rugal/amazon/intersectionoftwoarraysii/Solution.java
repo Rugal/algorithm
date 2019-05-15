@@ -27,6 +27,14 @@ import java.util.Map;
  */
 public class Solution {
 
+  /**
+   * The result can be in any order.
+   *
+   * @param nums1
+   * @param nums2
+   *
+   * @return
+   */
   public int[] intersect(int[] nums1, int[] nums2) {
     final Map<Integer, Integer> map = new HashMap<>();
     for (int n : nums1) {
