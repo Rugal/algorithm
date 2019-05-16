@@ -24,9 +24,9 @@ public class Solution {
 
   public int[] findRedundantConnection(final int[][] edges) {
     final UnionFindSet set = new UnionFindSet(edges.length);
-    for (int i = 0; i < edges.length; ++i) {
-      if (!set.union(edges[i][0], edges[i][1])) {
-        return edges[i];
+    for (int[] edge : edges) {
+      if (!set.union(edge[0], edge[1])) {
+        return edge;
       }
     }
     return null;

@@ -94,7 +94,6 @@ public class Solution {
    * [[1, 2], [2, 3], [3, 1], [4, 1]]<BR>
    * In this case, we remove the last edge that creates the circle, which is [3, 1]
    *
-   *
    * @param edges
    *
    * @return
@@ -105,24 +104,28 @@ public class Solution {
     this.hasDuplicateParent(edges, parentEdge, deletedEdge);
 
     //Union Find Set is not directed, it only knows who belongs to where
-    final UnionFindSet set = new UnionFindSet(edges.length + 1);
+    final UnionFindSet set = new UnionFindSet(edges.length);
     for (int[] edge : edges) {
       if (edge[0] < 0 || edge[1] < 0) {
         //Skip this edge as it was deleted
         continue;
       }
       //since we already deleted the second edge
-      //so the edge that forms the circle must be the edge1 or current
+      //so the edge that forms the circle must be the edge1/current
       //whether it is the parentEdge or current edge is depending on the duplication detection that we did before
       if (set.find(edge[0]) == set.find(edge[1])) {
+        //now circle formed
         return parentEdge[0] == 0
-               ? new int[]{edge[0], edge[1]} //case   1: no duplication
-               : parentEdge;                 //case 2.2: duplicate but no circle
+               ? new int[]{edge[0], edge[1]} //case   1: no duplicate parent [[1, 2], [2, 3], [3, 1]]
+               : parentEdge;                 //case 2.2: duplicate parent but no circle due to deleted
+        //[[1, 2], [2, 3], [3, 1], [4, 1]]
       }
       set.union(edge[0], edge[1]);
     }
-    //case 2.1: no circle detected because we deleted one edge
+    //no circle after deleting the edge that causes duplicate parent
+    //case 2.1: no circle detected because we deleted one edge, and has duplicate parent
     //so the edge deleted is the answer
+    //[[1, 2], [2, 3], [1, 3]]
     return deletedEdge;
   }
 
@@ -131,28 +134,30 @@ public class Solution {
    * Keep the first edge that forms the duplication, but delete the second one.<BR>
    *
    * @param edges
-   * @param edge1
-   * @param edge2
+   * @param parentEdge
+   * @param deleteEdge
    */
-  private void hasDuplicateParent(final int[][] edges, final int[] edge1, final int[] edge2) {
+  private void hasDuplicateParent(final int[][] edges,
+                                  final int[] parentEdge,
+                                  final int[] deleteEdge) {
     //Possible two edges(Two parents) in cases 2.
     final int[] parent = new int[edges.length + 1];
     for (int[] edge : edges) {
-      final int nodeU = edge[0];
-      final int nodeV = edge[1];
+      final int x = edge[0];
+      final int y = edge[1];
       //there is duplicate parents
-      if (parent[nodeV] > 0) {
-        //keep first edge
-        edge1[0] = parent[nodeV];
-        edge1[1] = nodeV;
+      if (parent[y] > 0) {
+        //get and ke5ep the first edge
+        parentEdge[0] = parent[y];//the original parent of y->x
+        parentEdge[1] = y;
         //Add 2nd edge somewhere because we are going to delete them
-        edge2[0] = nodeU;
-        edge2[1] = nodeV;
+        deleteEdge[0] = x;
+        deleteEdge[1] = y;
         //Delete the 2nd edge
         edge[0] = -1;
         edge[1] = -1;
       }
-      parent[nodeV] = nodeU;
+      parent[y] = x;
     }
   }
 }

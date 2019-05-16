@@ -34,14 +34,14 @@ public class Solution {
     }
 
     final Queue<Integer> queue = new LinkedList<>();
-    for (int i = 0; i < g.nVertices; i++) {
+    for (int i = 0; i < numCourses; i++) {
       //courses that have no prerequisite
       if (g.inDegrees[i] == 0) {
         queue.add(i);
       }
     }
     final List<Integer> result = new ArrayList<>();
-    int topSortNodes = g.nVertices;
+    int topSortNodes = numCourses;
     //start from courses that have no prerequisite
     while (!queue.isEmpty()) {
       final int curr = queue.poll();
@@ -65,8 +65,6 @@ public class Solution {
 
   class Graph {
 
-    final int nVertices;
-
     final LinkedList<Integer>[] adjacencyList;
 
     /**
@@ -75,12 +73,11 @@ public class Solution {
     final int[] inDegrees;
 
     Graph(int n) {
-      this.nVertices = n;
+      this.inDegrees = new int[n];
       this.adjacencyList = new LinkedList[n];
       for (int i = 0; i < n; i++) {
         this.adjacencyList[i] = new LinkedList<>();
       }
-      this.inDegrees = new int[n];
     }
 
     private void addEdge(int src, int destination) {

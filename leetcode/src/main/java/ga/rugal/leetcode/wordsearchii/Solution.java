@@ -33,64 +33,67 @@ public class Solution {
 
   private char[][] board;
 
-  public List<String> findWords(char[][] board, String[] words) {
+  public List<String> findWords(final char[][] board, final String[] words) {
     this.board = board;
-    final TrieNode root = buildTrie(words);
+    final TrieNode root = new TrieNode(words);
     for (int i = 0; i < board.length; i++) {
       for (int j = 0; j < board[0].length; j++) {
-        dfs(i, j, root);
+        root.process(i, j);
       }
     }
     return result;
   }
 
-  private void dfs(int i, int j, TrieNode p) {
-    final char c = board[i][j];
-    //if it is the origin or no word
-    if (c == '#' || p.next[c - 'a'] == null) {
-      return;
-    }
-    p = p.next[c - 'a'];
-    if (p.word != null) {
-      // reaches the leaf
-      result.add(p.word);
-      p.word = null;     // de-duplicate
-    }
-
-    board[i][j] = '#';
-    //try to find the next character
-    for (int r = 0; r < X.length; ++r) {
-      int newI = i + X[r];
-      int newJ = j + Y[r];
-
-      if (newI >= 0 && newI < board.length && newJ >= 0 && newJ < board[0].length) {
-        dfs(newI, newJ, p);
-      }
-    }
-
-    board[i][j] = c;
-  }
-
-  private TrieNode buildTrie(final String[] words) {
-    final TrieNode root = new TrieNode();
-    for (String w : words) {
-      TrieNode p = root;
-      for (char c : w.toCharArray()) {
-        int i = c - 'a';
-        if (p.next[i] == null) {
-          p.next[i] = new TrieNode();
-        }
-        p = p.next[i];
-      }
-      p.word = w;
-    }
-    return root;
-  }
-
-  class TrieNode {
+  private class TrieNode {
 
     TrieNode[] next = new TrieNode[26];
 
     String word;
+
+    private TrieNode() {
+    }
+
+    public TrieNode(final String[] words) {
+      for (String w : words) {
+        TrieNode p = this;
+        for (char c : w.toCharArray()) {
+          int i = c - 'a';
+          if (p.next[i] == null) {
+            p.next[i] = new TrieNode();
+          }
+          p = p.next[i];
+        }
+        p.word = w;
+      }
+    }
+
+    public void process(int i, int j) {
+      TrieNode p = this;
+      final char c = board[i][j];
+      //if it is the origin or no word
+      if (c == '#' || p.next[c - 'a'] == null) {
+        return;
+      }
+      p = p.next[c - 'a'];
+      if (p.word != null) {
+        // reaches the leaf
+        result.add(p.word);
+        p.word = null;     // de-duplicate
+      }
+
+      //this character is used
+      board[i][j] = '#';
+      //try to find the next character
+      for (int r = 0; r < X.length; ++r) {
+        int newI = i + X[r];
+        int newJ = j + Y[r];
+
+        if (newI >= 0 && newI < board.length && newJ >= 0 && newJ < board[0].length) {
+          p.process(newI, newJ);
+        }
+      }
+
+      board[i][j] = c;
+    }
   }
 }
