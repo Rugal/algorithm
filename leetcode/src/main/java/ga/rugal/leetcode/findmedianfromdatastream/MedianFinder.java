@@ -94,31 +94,29 @@ public class MedianFinder {
   TreeNode root, curr;
   // Adds a number into the data structure.
 
-  public void addNum(int num) {
+  public void addNum(final int num) {
     if (root == null) {
-      root = new TreeNode(num, null);
-      curr = root;
+      curr = root = new TreeNode(num, null);
       n = 1;
-    } else {
-      root.add(num);
-      n++;
-      if (n % 2 == 1) {
-        if (curr.val <= num) {
-          curr = curr.next();
-        }
-      } else if (curr.val > num) {
-        curr = curr.prev();
+      return;
+    }
+    root.add(num);
+    n++;
+    if (n % 2 == 1) {
+      if (curr.val <= num) {
+        curr = curr.next();
       }
+    } else if (curr.val > num) {
+      curr = curr.prev();
     }
   }
 
   // Returns the median of current data stream
   public double findMedian() {
-    if (n % 2 == 0) {
-      return ((double) curr.next().val + curr.val) / 2;
-    } else {
-      return curr.val;
-    }
+
+    return n % 2 == 0
+           ? ((double) curr.next().val + curr.val) / 2
+           : curr.val;
   }
 
   // max heap

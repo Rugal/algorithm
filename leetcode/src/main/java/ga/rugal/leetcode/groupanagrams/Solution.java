@@ -20,12 +20,9 @@ public class Solution {
       char[] chars = str.toCharArray();
       Arrays.sort(chars);
       final String key = String.valueOf(chars);
-      List<String> get = map.get(key);
-      if (null == get) {
-        get = new ArrayList<>();
-        map.put(key, get);
-      }
+      List<String> get = map.getOrDefault(key, new ArrayList<>());
       get.add(str);
+      map.put(key, get);
     }
 
     return map.values().stream()
