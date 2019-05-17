@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.findmedianfromdatastream;
 
+import java.util.PriorityQueue;
+
 /**
  * https://leetcode.com/problems/find-median-from-data-stream/
  * https://leetcode.com/problems/find-median-from-data-stream/discuss/74119/18ms-beats-100-Java-Solution-with-BST
@@ -117,5 +119,28 @@ public class MedianFinder {
     } else {
       return curr.val;
     }
+  }
+
+  // max heap
+  private final PriorityQueue<Integer> lo = new PriorityQueue<>((a, b) -> b - a);
+
+  // min heap
+  private final PriorityQueue<Integer> hi = new PriorityQueue<>((a, b) -> a - b);
+
+  public void addNum2(int num) {
+    // Add to max heap
+    lo.offer(num);
+    // balancing step
+    hi.offer(lo.poll());
+
+    // maintain size property
+    if (lo.size() < hi.size()) {
+      lo.offer(hi.poll());
+    }
+  }
+
+  // Returns the median of current data stream
+  public double findMedian2() {
+    return lo.size() > hi.size() ? (double) lo.peek() : (lo.peek() + hi.peek()) * 0.5;
   }
 }
