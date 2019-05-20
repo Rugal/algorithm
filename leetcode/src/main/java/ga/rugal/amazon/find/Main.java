@@ -403,6 +403,7 @@ abstract class Action extends PlanNode {
   public void initialize() {
   }
 
+  @Override
   public void finalize() {
   }
 

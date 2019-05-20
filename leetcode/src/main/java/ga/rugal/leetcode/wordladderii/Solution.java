@@ -68,16 +68,16 @@ public class Solution {
     bfsQueue.offer(new Pair(beginWord, new ArrayList<>()));
     currentVisited.add(beginWord);
 
-    boolean foundEnd = false;
+    boolean found = false;
 
-    while (!foundEnd && !bfsQueue.isEmpty()) {
+    //exit when found
+    while (!found && !bfsQueue.isEmpty()) {
       //Get rid of visited word only after visiting each layer
       unvisited.removeAll(currentVisited);
       //because within the same layer, we still allow duplicate visit
       currentVisited.clear();
-      //Scan only for one level
-      //To control scope of BFS
-      //because only one level at a time, the result from same level must all be the best path
+      //Scan layer by layer level to control scope of BFS
+      //only one level at a time, the element in the same level are all result
       final int size = bfsQueue.size();
       //traverse each element within this level
       for (int w = 0; w < size; w++) {
@@ -94,7 +94,7 @@ public class Solution {
               //once it ends here, we need to save all possible path, save this result
               result.add(newNode.path);
               //we can exit the loop, but not until go through all element in this level
-              foundEnd = true;
+              found = true;
             }
             bfsQueue.offer(newNode);
             currentVisited.add(s);

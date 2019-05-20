@@ -67,7 +67,7 @@ public class Solution {
       }
     }
 
-    public void process(int i, int j) {
+    public void process(final int i, final int j) {
       TrieNode p = this;
       final char c = board[i][j];
       //if it is the origin or no word
@@ -85,15 +85,20 @@ public class Solution {
       board[i][j] = '#';
       //try to find the next character
       for (int r = 0; r < X.length; ++r) {
-        int newI = i + X[r];
-        int newJ = j + Y[r];
+        final int newI = i + X[r];
+        final int newJ = j + Y[r];
 
-        if (newI >= 0 && newI < board.length && newJ >= 0 && newJ < board[0].length) {
+        if (isValid(newI, newJ)) {
           p.process(newI, newJ);
         }
       }
 
       board[i][j] = c;
     }
+  }
+
+  private boolean isValid(int i, int j) {
+    return 0 <= i && i < this.board.length
+           && 0 <= j && j < this.board[0].length;
   }
 }
