@@ -40,9 +40,9 @@ public class Solution {
 
   }
 
-  Map<Character, Node> graph = new HashMap<>();
+  private final Map<Character, Node> graph = new HashMap<>();
 
-  Map<Character, Integer> inDegree = new HashMap<>();
+  private final Map<Character, Integer> inDegree = new HashMap<>();
 
   public String alienOrder(String[] words) {
 
@@ -57,9 +57,7 @@ public class Solution {
       char[] word2 = words[i].toCharArray();
       int j = 0;
 
-      while (j < word1.length && j < word2.length && word1[j] == word2[j]) {
-        j++;
-      }
+      for (; j < word1.length && j < word2.length && word1[j] == word2[j]; ++j);
 
       if (j >= word1.length || j >= word2.length) {
         continue;

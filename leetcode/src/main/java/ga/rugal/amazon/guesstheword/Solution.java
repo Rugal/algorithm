@@ -26,22 +26,20 @@ import java.util.List;
  */
 public class Solution {
 
-  public void findSecretWord(String[] wordlist, Master master) {
+  public void findSecretWord(final String[] wordlist, final Master master) {
     int guess = -1;
-    List<String> workList = new ArrayList();
+    List<String> temp = new ArrayList();
     //sort word list for better guess + put it in a List
     Arrays.sort(wordlist);
-    for (int i = 0; i < wordlist.length; i++) {
-      workList.add(wordlist[i]);
-    }
+    temp.addAll(Arrays.asList(wordlist));
     //If the worklist is empty we dont need to do anything, else we can directly get the one at 0 (being the first)
-    if (!workList.isEmpty()) {
+    if (!temp.isEmpty()) {
       //We try 10 times, however we stop once we have guess = 6 (Because it's bingo)
       for (int i = 0; i < 10 && guess != 6; i++) {
         //get the score of the first element
-        guess = master.guess(workList.get(0));
+        guess = master.guess(temp.get(0));
         //update the worklist by filtering it to only possible candidates
-        workList = getLeftCandidates(workList, workList.get(0), guess);
+        temp = getLeftCandidates(temp, temp.get(0), guess);
       }
     }
   }

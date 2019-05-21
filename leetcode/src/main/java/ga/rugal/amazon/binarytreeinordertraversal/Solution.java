@@ -27,22 +27,18 @@ import ga.rugal.leetcode.TreeNode;
  */
 public class Solution {
 
-  private final List<Integer> res = new ArrayList<>();
+  private final List<Integer> result = new ArrayList<>();
 
   public List<Integer> inorderTraversal(final TreeNode root) {
     this.helper(root);
-    return this.res;
+    return this.result;
   }
 
   public void helper(final TreeNode root) {
     if (root != null) {
-      if (root.left != null) {
-        this.helper(root.left);
-      }
-      this.res.add(root.val);
-      if (root.right != null) {
-        this.helper(root.right);
-      }
+      this.helper(root.left);
+      this.result.add(root.val);
+      this.helper(root.right);
     }
   }
 }
