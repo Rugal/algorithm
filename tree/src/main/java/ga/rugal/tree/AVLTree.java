@@ -27,17 +27,32 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V> {
   }
 
   /**
-   * Rotate a tree to right. The given node becomes right subtree of its origin left tree.<BR>
-   * The origin left tree node becomes parent of given node.<BR>
-   * The origin right tree of origin left tree of given becomes new left tree of given tree.
-   *
+   * Rotate a tree to right. The given node A becomes right subtree of its origin left tree B.<BR>
+   * The B node becomes parent of A .<BR>
+   * The origin right tree C of B becomes new left tree of A.<BR>
+   *       6
+   *      / \
+   *     3   8
+   *    / \
+   *   2   5
+   *  /
+   * 1
+   * 
+   * --->
+   * 
+   *     3
+   *    / \
+   *   2   6
+   *  /   / \
+   * 1   5   8
+
    * @param node
    *
    * @return The new parent node that hold given node.
    */
-  private TreeNode rightRotate(TreeNode node) {
-    TreeNode newParent = node.left;
-    TreeNode originRight = newParent.right;
+  private TreeNode rightRotate(final TreeNode node) {
+    final TreeNode newParent = node.left;
+    final TreeNode originRight = newParent.right;
     // Perform rotation
     newParent.right = node;
     node.left = originRight;
@@ -49,9 +64,24 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V> {
   }
 
   /**
-   * Rotate a tree to left. The given node becomes left subtree of its origin right tree.<BR>
-   * The origin right tree node becomes parent of given node.<BR>
-   * The origin left tree of origin right tree of given becomes new right tree of given tree.
+   * Rotate a tree to left. The given node A becomes left subtree of its origin right tree B.<BR>
+   * The origin right tree node C becomes parent of A.<BR>
+   * The origin left tree C of B becomes new right tree of A .<BR>
+   *   3
+   *  / \
+   * 1   6
+   *    / \
+   *   5   7
+   *        \
+   *         9  
+   * 
+   * --->
+   * 
+   *      6
+   *     / \
+   *    3   7
+   *   / \   \
+   *  1   5   9
    *
    * @param node
    *
@@ -105,7 +135,7 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V> {
    *
    * @return
    */
-  private TreeNode<K, V> insert(TreeNode<K, V> node, K key, V value) {
+  private TreeNode<K, V> insert(final TreeNode<K, V> node, final K key, final V value) {
     /*
      * 1. Perform the normal BST rotation
      */
@@ -113,7 +143,7 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V> {
       this.size++;
       return new TreeNode<>(key, value);
     }
-    int result = key.compareTo(node.getKey());
+    final int result = key.compareTo(node.getKey());
     if (0 == result) {
       //replace an existed value, no need for structure re-adjust
       node.setValue(value);
@@ -132,7 +162,7 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V> {
     /*
      * 3. Get the balance factor of this ancestor node to check whether this node became unbalanced
      */
-    int balance = getBalance(node);
+    final int balance = getBalance(node);
 
     // If this node becomes unbalanced, then there are 4 cases
     // Left Left Case
@@ -174,21 +204,17 @@ public class AVLTree<K extends Comparable, V> implements Tree<K, V> {
    * {@inheritDoc }
    */
   @Override
-  public V get(K key) {
+  public V get(final K key) {
     if (null == key || this.isEmpty()) {
       return null;
     }
     TreeNode<K, V> temp = root;
     while (null != temp) {
-      int result = temp.getKey().compareTo(key);
+      final int result = temp.getKey().compareTo(key);
       if (0 == result) {
         return temp.getValue();
       }
-      if (result < 0) {
-        temp = temp.right;
-      } else {
-        temp = temp.left;
-      }
+      temp = result < 0 ? temp.right: temp.left;
     }
     return null;
   }
