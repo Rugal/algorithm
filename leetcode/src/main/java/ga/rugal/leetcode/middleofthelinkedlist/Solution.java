@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ga.rugal.leetcode.movezeroes;
+package ga.rugal.leetcode.middleofthelinkedlist;
+
+import ga.rugal.leetcode.ListNode;
 
 /**
+ * https://leetcode.com/problems/middle-of-the-linked-list/
  *
  * @author rugal
  */
 public class Solution {
 
-  public void moveZeroes(int[] nums) {
-    for (int zero = 0, nonZero = 0; nonZero < nums.length; nonZero++) {
-      if (nums[nonZero] != 0) {
-        final int temp = nums[zero];
-        nums[zero++] = nums[nonZero];
-        nums[nonZero] = temp;
-      }
-    }
+  public ListNode middleNode(final ListNode head) {
+    ListNode slow = head;
+    for (ListNode fast = head;
+         fast != null && fast.next != null;
+         slow = slow.next, fast = fast.next.next);
+    return slow;
   }
 }
