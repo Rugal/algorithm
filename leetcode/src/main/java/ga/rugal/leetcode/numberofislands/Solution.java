@@ -28,6 +28,18 @@ public class Solution {
     return counter;
   }
 
+  /**
+   * Must be <BR>
+   * 1. valid coordinates<BR>
+   * 2. not visited yet<BR>
+   * 3. has land there
+   * 
+   * @param grid
+   * @param visit
+   * @param row
+   * @param column
+   * @return 
+   */
   private boolean canVisit(final char[][] grid, final boolean[][] visit,
                            final int row, final int column) {
     return row >= 0 && row < grid.length
@@ -38,8 +50,11 @@ public class Solution {
 
   private void dfs(final char[][] grid, final boolean[][] visit,
                    final int row, final int column) {
+    // now we visited this land
     visit[row][column] = true;
 
+    // make sure all the connect land is visited
+    // they are all considered as one island
     for (int i = 0; i < X.length; ++i) {
       if (this.canVisit(grid, visit, row + X[i], column + Y[i])) {
         this.dfs(grid, visit, row + X[i], column + Y[i]);
