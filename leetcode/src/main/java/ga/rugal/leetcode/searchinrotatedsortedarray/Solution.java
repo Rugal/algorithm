@@ -42,8 +42,10 @@ public class Solution {
        *         mid
        */
       final int number = (nums[0] > nums[mid]) == (nums[0] > target)
-                         ? nums[mid]
-                         : target < nums[0] ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+                         ? nums[mid] // if mid and target is on the same side
+                         : target < nums[0] // if mid and target is on the different side
+                           ? Integer.MIN_VALUE // target on the left
+                           : Integer.MAX_VALUE; // target on the right
       if (number == target) {
         return mid;
       }
