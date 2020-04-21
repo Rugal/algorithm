@@ -15,42 +15,43 @@
  */
 package ga.rugal.leetcode.removeduplicatesfromsortedlistii;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ga.rugal.leetcode.ListNode;
 
 /**
- * https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
  *
  * @author rugal
  */
 public class Solution {
 
-  public ListNode deleteDuplicates(ListNode head) {
-    ListNode prev = null;
-    ListNode pointer = head;
-    while (pointer != null && pointer.next != null) {
-      // have different value
-      if (pointer.val != pointer.next.val) {
-        // just move the prev to current position
-        prev = pointer;
-        pointer = pointer.next;
+  public ListNode deleteDuplicates(final ListNode head) {
+    if (null == head) {
+      return null;
+    }
+    final Map<Integer, Integer> map = new HashMap<>();
+    for (ListNode n = head; n != null; n = n.next) {
+      final int value = map.getOrDefault(n.val, 0);
+      map.put(n.val, value + 1);
+    }
+    final ListNode fakeHead = new ListNode(Integer.MAX_VALUE);
+    fakeHead.next = head;
+
+    for (ListNode n = head, p = fakeHead; n != null && n.next != null;) {
+      final int count = map.get(n.val);
+      // unique value
+      if (count == 1) {
+        n = n.next;
+        p = p.next;
         continue;
       }
-      final ListNode temp = delete(pointer);
-      if (prev != null) {
-        prev.next = temp;
-      } else {
-        head = temp;
+      // remove duplicated value
+      for (int i = 0; i < count; ++i) {
+        n = n.next;
       }
-      // move pointer to the most recent one
-      pointer = temp;
+      p.next = n;
     }
-    return head;
-  }
-
-  private ListNode delete(ListNode node) {
-    while (node != null && node.next != null && node.val == node.next.val) {
-      node = node.next;
-    }
-    return node.next;
+    return fakeHead.next;
   }
 }
