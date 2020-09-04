@@ -15,42 +15,33 @@
  */
 package ga.rugal.amazon.phone1;
 
-import java.util.Arrays;
-import java.util.Collection;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  *
  * @author rugal
  */
-@RunWith(Parameterized.class)
 public class SolutionTest {
 
   private final Solution solution = new Solution();
 
-  @Parameterized.Parameters
-  public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][]{
-      {new char[][]{{'B', 'A'}, {'A', 'B'}, {'B', 'Y'}, {'T', 'H'}, {'A', 'B'}}, "BABY", true},
-      {new char[][]{{'B', 'A'}, {'A', 'B'}, {'L', 'E'}, {'A', 'B'}}, "ABLE", false}
-    });
+  static Stream<Arguments> source() {
+    return Stream.of(
+      arguments(new char[][]{{'B', 'A'}, {'A', 'B'}, {'B', 'Y'}, {'T', 'H'}, {'A', 'B'}}, "BABY", true),
+      arguments(new char[][]{{'B', 'A'}, {'A', 'B'}, {'L', 'E'}, {'A', 'B'}}, "ABLE", false)
+    );
   }
 
-  @Parameterized.Parameter(0)
-  public char[][] input;
-
-  @Parameterized.Parameter(1)
-  public String target;
-
-  @Parameterized.Parameter(2)
-  public boolean expected;
-
-  @Test
-  public void testCoinGame() {
-    Assert.assertEquals(this.expected, this.solution.coinGame(this.input, this.target));
+  @ParameterizedTest
+  @MethodSource("source")
+  public void testCoinGame(char[][] input, String target, boolean expected) {
+    Assertions.assertEquals(expected, this.solution.coinGame(input, target));
   }
 }

@@ -15,41 +15,33 @@
  */
 package ga.rugal.amazon.intersectionoftwoarraysii;
 
-import java.util.Arrays;
-import java.util.Collection;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  *
  * @author rugal
  */
-@RunWith(Parameterized.class)
 public class SolutionTest {
 
   private final Solution solution = new Solution();
 
-  @Parameterized.Parameters
-  public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][]{
-      {new int[]{1, 2, 2, 1}, new int[]{2, 2}, new int[]{2, 2}},
-      {new int[]{4, 9, 5}, new int[]{9, 4, 9, 8, 4}, new int[]{9, 4}},});
+  static Stream<Arguments> source() {
+    return Stream.of(
+      arguments(new int[]{1, 2, 2, 1}, new int[]{2, 2}, new int[]{2, 2}),
+      arguments(new int[]{4, 9, 5}, new int[]{9, 4, 9, 8, 4}, new int[]{9, 4})
+    );
   }
 
-  @Parameterized.Parameter(0)
-  public int[] left;
-
-  @Parameterized.Parameter(1)
-  public int[] right;
-
-  @Parameterized.Parameter(2)
-  public int[] expected;
-
-  @Test
-  public void testIntersect() {
-    Assert.assertArrayEquals(expected, this.solution.intersect(left, right));
+  @ParameterizedTest
+  @MethodSource("source")
+  public void testIntersect(final int[] left, final int[] right, final int[] expected) {
+    Assertions.assertArrayEquals(expected, this.solution.intersect(left, right));
   }
 }

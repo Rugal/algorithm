@@ -15,36 +15,31 @@
  */
 package ga.rugal.reuters;
 
-import java.util.Arrays;
-import java.util.Collection;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  *
  * @author u6105440
  */
-@RunWith(Parameterized.class)
 public class Question6Test {
 
-  @Parameterized.Parameters
-  public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][]{
-      {"aeiaaioaaaaeiiiiouuuooaauuaeiu", 13},
-      {"aeiaaiooaauua", 0}});
+  static Stream<Arguments> source() {
+    return Stream.of(
+      arguments("aeiaaioaaaaeiiiiouuuooaauuaeiu", 13),
+      arguments("aeiaaiooaauua", 0)
+    );
   }
 
-  @Parameterized.Parameter(0)
-  public String input;
-
-  @Parameterized.Parameter(1)
-  public int expected;
-
-  @Test
-  public void longestVowelSubsequence() {
-    Assert.assertEquals(this.expected, Question6.longestVowelSubsequence(this.input));
+  @ParameterizedTest
+  @MethodSource("source")
+  public void longestVowelSubsequence(String input, int expected) {
+    Assertions.assertEquals(expected, Question6.longestVowelSubsequence(input));
   }
 }

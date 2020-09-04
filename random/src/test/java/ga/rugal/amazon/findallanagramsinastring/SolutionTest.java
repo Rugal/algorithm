@@ -15,40 +15,32 @@
  */
 package ga.rugal.amazon.findallanagramsinastring;
 
-import java.util.Arrays;
-import java.util.Collection;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 /**
  *
  * @author rugalbernstein
  */
-@RunWith(Parameterized.class)
 public class SolutionTest {
 
   private final Solution solution = new Solution();
 
-  @Parameterized.Parameters
-  public static Collection<Object[]> data() {
-    return Arrays.asList(new Object[][]{
-      {"cbaebabacd", "abc", new int[]{0, 6}},});
+  static Stream<Arguments> source() {
+    return Stream.of(
+      arguments("cbaebabacd", "abc", new int[]{0, 6})
+    );
   }
 
-  @Parameterized.Parameter(0)
-  public String s;
-
-  @Parameterized.Parameter(1)
-  public String p;
-
-  @Parameterized.Parameter(2)
-  public int[] expected;
-
-  @Test
-  public void testFindAnagrams() {
-    Assert.assertArrayEquals(this.expected, this.solution.findAnagrams(s, p).stream().mapToInt(x -> x).toArray());
+  @ParameterizedTest
+  @MethodSource("source")
+  public void testFindAnagrams(final String s, final String p, final int[] expected) {
+    Assertions.assertArrayEquals(expected, this.solution.findAnagrams(s, p).stream().mapToInt(x -> x).toArray());
   }
 }
