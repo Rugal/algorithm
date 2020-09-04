@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.permutationsequence;
 
+import ga.rugal.leetcode.permutationsequence.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

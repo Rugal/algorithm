@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.maximumsubarray;
 
+import ga.rugal.leetcode.maximumsubarray.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

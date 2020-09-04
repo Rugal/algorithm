@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.lettercasepermutation;
 
+import ga.rugal.leetcode.lettercasepermutation.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

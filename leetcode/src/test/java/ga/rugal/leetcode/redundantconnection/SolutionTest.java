@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.redundantconnection;
 
+import ga.rugal.leetcode.redundantconnection.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

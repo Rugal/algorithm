@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.rotatearray;
 
+import ga.rugal.leetcode.rotatearray.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

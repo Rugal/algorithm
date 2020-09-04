@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.firstmissingpositive;
 
+import ga.rugal.leetcode.firstmissingpositive.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

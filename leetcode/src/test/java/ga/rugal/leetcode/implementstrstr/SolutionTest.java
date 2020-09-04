@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.implementstrstr;
 
+import ga.rugal.leetcode.implementstrstr.Solution;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

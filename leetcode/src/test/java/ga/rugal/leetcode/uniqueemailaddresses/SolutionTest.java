@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.uniqueemailaddresses;
 
+import ga.rugal.leetcode.uniqueemailaddresses.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

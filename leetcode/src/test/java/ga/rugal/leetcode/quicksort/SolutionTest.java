@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.quicksort;
 
+import ga.rugal.leetcode.quicksort.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

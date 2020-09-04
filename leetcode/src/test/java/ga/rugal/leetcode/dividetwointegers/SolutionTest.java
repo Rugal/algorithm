@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.dividetwointegers;
 
+import ga.rugal.leetcode.dividetwointegers.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

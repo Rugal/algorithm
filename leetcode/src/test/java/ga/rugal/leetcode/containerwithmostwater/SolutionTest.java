@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.containerwithmostwater;
 
+import ga.rugal.leetcode.containerwithmostwater.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

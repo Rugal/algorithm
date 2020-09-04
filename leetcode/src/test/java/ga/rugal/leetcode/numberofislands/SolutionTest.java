@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.numberofislands;
 
+import ga.rugal.leetcode.numberofislands.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

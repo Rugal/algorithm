@@ -13,38 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ga.rugal.amazon.twosumivinputisabst;
+package ga.rugal.amazon.binarytreeinordertraversal;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-import ga.rugal.leetcode.TreeNode;
+import ga.rugal.amazon.TreeNode;
 
 /**
- * https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
+ * https://leetcode.com/problems/binary-tree-inorder-traversal/
  *
  * @author rugalbernstein
  */
 public class Solution {
 
-  private final Set<Integer> set = new HashSet<>();
+  private final List<Integer> result = new ArrayList<>();
 
-  private int k;
-
-  public boolean findTarget(final TreeNode root, final int k) {
-    this.k = k;
-    return this.inorder(root);
+  public List<Integer> inorderTraversal(final TreeNode root) {
+    this.helper(root);
+    return this.result;
   }
 
-  private boolean inorder(final TreeNode root) {
-    if (null == root) {
-      return false;
+  public void helper(final TreeNode root) {
+    if (root != null) {
+      this.helper(root.left);
+      this.result.add(root.val);
+      this.helper(root.right);
     }
-    if (this.inorder(root.left)
-        || this.set.contains(this.k - root.val)) {
-      return true;
-    }
-    this.set.add(root.val);
-    return this.inorder(root.right);
   }
 }

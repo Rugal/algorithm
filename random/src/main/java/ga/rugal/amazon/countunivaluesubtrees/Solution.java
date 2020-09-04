@@ -15,7 +15,7 @@
  */
 package ga.rugal.amazon.countunivaluesubtrees;
 
-import ga.rugal.leetcode.TreeNode;
+import ga.rugal.amazon.TreeNode;
 
 /**
  * https://leetcode.com/problems/count-univalue-subtrees/

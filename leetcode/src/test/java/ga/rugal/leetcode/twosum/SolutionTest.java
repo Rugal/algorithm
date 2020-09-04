@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.twosum;
 
+import ga.rugal.leetcode.twosum.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.minstack;
 
+import ga.rugal.leetcode.minstack.MinStack;
+
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.combinationsumii;
 
+import ga.rugal.leetcode.combinationsumii.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

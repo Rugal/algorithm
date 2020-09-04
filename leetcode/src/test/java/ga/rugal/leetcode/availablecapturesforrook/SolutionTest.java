@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.availablecapturesforrook;
 
+import ga.rugal.leetcode.availablecapturesforrook.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

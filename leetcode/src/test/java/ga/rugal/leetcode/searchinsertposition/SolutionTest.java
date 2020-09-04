@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.searchinsertposition;
 
+import ga.rugal.leetcode.searchinsertposition.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

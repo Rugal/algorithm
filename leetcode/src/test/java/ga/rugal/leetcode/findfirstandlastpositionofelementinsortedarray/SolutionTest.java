@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.findfirstandlastpositionofelementinsortedarray;
 
+import ga.rugal.leetcode.findfirstandlastpositionofelementinsortedarray.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

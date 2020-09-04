@@ -22,6 +22,7 @@
   </properties>
 
   <modules>
+    <module>random</module>
     <module>tree</module>
     <module>leetcode</module>
     <module>hackerrank</module>

@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.wordsearch;
 
+import ga.rugal.leetcode.wordsearch.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

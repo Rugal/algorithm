@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.maximumsumoftwononoverlappingsubarrays;
 
+import ga.rugal.leetcode.maximumsumoftwononoverlappingsubarrays.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

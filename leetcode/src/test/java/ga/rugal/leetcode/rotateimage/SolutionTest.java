@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.rotateimage;
 
+import ga.rugal.leetcode.rotateimage.Solution;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

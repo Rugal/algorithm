@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.threesumclosest;
 
+import ga.rugal.leetcode.threesumclosest.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

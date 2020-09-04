@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.stringtointegeratoi;
 
+import ga.rugal.leetcode.stringtointegeratoi.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

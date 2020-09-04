@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.slidingwindowmaximum;
 
+import ga.rugal.leetcode.slidingwindowmaximum.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.validpalindrome;
 
+import ga.rugal.leetcode.validpalindrome.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

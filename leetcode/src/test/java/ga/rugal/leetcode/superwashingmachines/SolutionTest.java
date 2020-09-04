@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.superwashingmachines;
 
+import ga.rugal.leetcode.superwashingmachines.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

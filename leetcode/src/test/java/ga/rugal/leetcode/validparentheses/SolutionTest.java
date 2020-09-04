@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.validparentheses;
 
+import ga.rugal.leetcode.validparentheses.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

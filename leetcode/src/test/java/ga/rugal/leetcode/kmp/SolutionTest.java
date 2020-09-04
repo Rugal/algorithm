@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.kmp;
 
+import ga.rugal.leetcode.kmp.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

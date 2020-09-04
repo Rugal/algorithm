@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.longestsubstringwithoutrepeatingcharacters;
 
+import ga.rugal.leetcode.longestsubstringwithoutrepeatingcharacters.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

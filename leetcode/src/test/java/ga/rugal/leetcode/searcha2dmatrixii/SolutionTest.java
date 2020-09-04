@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.searcha2dmatrixii;
 
+import ga.rugal.leetcode.searcha2dmatrixii.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

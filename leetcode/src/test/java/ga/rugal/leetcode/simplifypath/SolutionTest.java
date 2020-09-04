@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.simplifypath;
 
+import ga.rugal.leetcode.simplifypath.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

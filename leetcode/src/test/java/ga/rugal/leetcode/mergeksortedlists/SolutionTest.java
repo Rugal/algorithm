@@ -1,6 +1,7 @@
 package ga.rugal.leetcode.mergeksortedlists;
 
 import ga.rugal.leetcode.ListNode;
+import ga.rugal.leetcode.mergeksortedlists.Solution;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;

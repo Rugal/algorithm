@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.multiplystrings;
 
+import ga.rugal.leetcode.multiplystrings.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

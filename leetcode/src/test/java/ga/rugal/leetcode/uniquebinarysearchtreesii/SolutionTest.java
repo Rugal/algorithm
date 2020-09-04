@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.uniquebinarysearchtreesii;
 
+import ga.rugal.leetcode.uniquebinarysearchtreesii.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

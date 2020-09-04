@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.nthdigit;
 
+import ga.rugal.leetcode.nthdigit.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

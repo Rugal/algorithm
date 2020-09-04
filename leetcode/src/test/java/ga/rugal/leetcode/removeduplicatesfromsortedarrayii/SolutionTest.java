@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.removeduplicatesfromsortedarrayii;
 
+import ga.rugal.leetcode.removeduplicatesfromsortedarrayii.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

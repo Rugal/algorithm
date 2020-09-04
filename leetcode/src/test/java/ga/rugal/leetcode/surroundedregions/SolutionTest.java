@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.surroundedregions;
 
+import ga.rugal.leetcode.surroundedregions.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

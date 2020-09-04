@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.perfectsquares;
 
+import ga.rugal.leetcode.perfectsquares.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

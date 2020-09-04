@@ -5,7 +5,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
-import ga.rugal.leetcode.TreeNode;
+import ga.rugal.amazon.TreeNode;
 
 /**
  * https://leetcode.com/problems/serialize-and-deserialize-binary-tree/

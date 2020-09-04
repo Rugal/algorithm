@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.matrixcellsindistanceorder;
 
+import ga.rugal.leetcode.matrixcellsindistanceorder.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

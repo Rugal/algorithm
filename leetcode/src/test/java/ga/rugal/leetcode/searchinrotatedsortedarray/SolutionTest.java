@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.searchinrotatedsortedarray;
 
+import ga.rugal.leetcode.searchinrotatedsortedarray.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.matrix01;
 
+import ga.rugal.leetcode.matrix01.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

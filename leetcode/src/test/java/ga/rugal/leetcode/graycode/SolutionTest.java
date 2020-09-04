@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.graycode;
 
+import ga.rugal.leetcode.graycode.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

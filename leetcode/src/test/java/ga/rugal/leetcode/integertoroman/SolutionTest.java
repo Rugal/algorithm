@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.integertoroman;
 
+import ga.rugal.leetcode.integertoroman.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

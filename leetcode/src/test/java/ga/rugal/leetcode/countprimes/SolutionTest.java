@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.countprimes;
 
+import ga.rugal.leetcode.countprimes.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 

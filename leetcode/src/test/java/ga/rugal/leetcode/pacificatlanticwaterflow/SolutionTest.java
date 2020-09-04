@@ -15,6 +15,8 @@
  */
 package ga.rugal.leetcode.pacificatlanticwaterflow;
 
+import ga.rugal.leetcode.pacificatlanticwaterflow.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;

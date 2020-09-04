@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.wordladder;
 
+import ga.rugal.leetcode.wordladder.Solution;
+
 import java.util.Arrays;
 import java.util.Collection;
 
