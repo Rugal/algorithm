@@ -1,18 +1,3 @@
-/*
- * Copyright 2019 rugal.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package ga.rugal.leetcode.isomorphicstrings;
 
 import java.util.HashMap;
@@ -31,12 +16,20 @@ public class Solution {
 
   private int translate(final String text) {
     final Map<Character, Integer> map = new HashMap<>();
-    int base = 0;
+    int base = 0; // 0 for string that never duplicate character
     for (int i = 0; i < text.length(); i++) {
       if (map.containsKey(text.charAt(i))) {
+        // if we saw this character already, means current character is a duplication
+        // basically hash this string by calculating an decimal value
+        // the key is to know the location of duplication
+        // then calculate the hash value based on that
+        // also shift by factor 10 to emphasis the importance of order
         base = base * 10 + map.get(text.charAt(i));
       } else {
-        map.put(text.charAt(i), i + 1);
+        // if we never seen this char before
+        // the key point is: what character is located at where
+        // simply record index of each character in map
+        map.put(text.charAt(i), i + 1); // +1 for escaping index 0
       }
     }
     return base;
