@@ -1,4 +1,4 @@
-package ga.rugal.amazon.phone1;
+package ga.rugal.amazon.transactionlog;
 
 import java.util.stream.Stream;
 
@@ -12,16 +12,14 @@ public class SolutionTest {
   private final Solution solution = new Solution();
 
   static Stream<Arguments> source() {
-
     return Stream.of(
-      Arguments.of(new char[][]{{'B', 'A'}, {'A', 'B'}, {'B', 'Y'}, {'T', 'H'}, {'A', 'B'}}, "BABY", true),
-      Arguments.of(new char[][]{{'B', 'A'}, {'A', 'B'}, {'L', 'E'}, {'A', 'B'}}, "ABLE", false)
+      Arguments.of(new String[]{"88 99 200", "88 99 300", "99 32 100", "12 12 15"}, 2, new String[]{"88", "99"})
     );
   }
 
   @ParameterizedTest
   @MethodSource("source")
-  public void testCoinGame(char[][] input, String target, boolean expected) {
-    Assertions.assertEquals(expected, this.solution.coinGame(input, target));
+  public void processLogFile(final String[] logs, final int threshold, final String[] expected) {
+    Assertions.assertArrayEquals(expected, this.solution.processLogFile(logs, threshold));
   }
 }
