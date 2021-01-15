@@ -32,14 +32,21 @@ public class Solution {
 
         // Travel backwards over the jobs, updating dayMax and recalculating the minCost
         for (int i = job - 1; i >= day; i--) {
+          // end at day because we must do 1 job per day
 
-          // update max difficulty if jobs j where k <= j < n
+          /*
+           * find max value between job-1 => day in decreasing order.
+           *
+           * 0 ... day day+1 day+2 ... job-2 job-1
+           *
+           * find best cut between day<=>job-1 that minimize the cost between 0<=>job-1
+           */
           max = Math.max(max, jobDifficulty[i]);
-          // update minCost of dayMax plus previous day of jobs j s.t. k < j
+          // cut on i-1, group i<=>job-1 together, 0<=>i-1 is another big group
           min = Math.min(min, dp[day - 1][i - 1] + max);
         }
 
-        // Set minCost of day i for all jobs up to j
+        // Set minCost of day i
         dp[day][job] = min;
       }
     }
