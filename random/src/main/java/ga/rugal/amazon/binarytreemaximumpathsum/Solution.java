@@ -36,7 +36,9 @@ public class Solution {
     }
     final int left = Math.max(0, this.maxPathDown(node.left));
     final int right = Math.max(0, this.maxPathDown(node.right));
+    // even if we added both left and right, we are trying to see if there is a path over root
     this.maxValue = Math.max(this.maxValue, left + right + node.val);
+    // this is to connect either left or right to the root node, so it is still a path
     return Math.max(left, right) + node.val;
   }
 }
