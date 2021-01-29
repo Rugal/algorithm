@@ -15,11 +15,12 @@ public class Solution {
   private int[][] board;
 
   public int snakesAndLadders(final int[][] board) {
+    final int LENGTH = this.board.length * this.board.length;
     this.board = board;
 
-    //both visited map and result cache
-    //otherwise we have to have a SET to store the visited element
-    //and use Pair object to store the known length
+    // both visited map and result cache
+    // otherwise we have to have a SET to store the visited element
+    // and use Pair object to store the known length
     final Map<Integer, Integer> result = new HashMap();
     result.put(1, 0);
 
@@ -27,18 +28,17 @@ public class Solution {
     queue.add(1);
 
     while (!queue.isEmpty()) {
-      final int current = queue.remove();
-      if (current == this.board.length * this.board.length) {
+      final int current = queue.poll();
+      // because we use BFS, the the first occurence is the shortest
+      if (current == LENGTH) {
         return result.get(current);
       }
 
-      for (int i = current + 1;
-           i <= Math.min(current + 6, this.board.length * this.board.length);
-           ++i) {
+      for (int i = current + 1; i <= Math.min(current + 6, LENGTH); ++i) {
         final int rc = get(i);
         final int r = rc / this.board.length;
         final int c = rc % this.board.length;
-        //if -1, just move, otherwise move to the end of ladder or snake
+        // if -1, just move, otherwise move to the end of ladder or snake
         final int next = board[r][c] == -1 ? i : board[r][c];
         //if never visited before
         if (!result.containsKey(next)) {
