@@ -1,4 +1,4 @@
-package ga.rugal.amazon.minimumdeletionstomakecharacterfrequenciesunique;
+package ga.rugal.amazon.robotboundedincircle;
 
 import java.util.stream.Stream;
 
@@ -13,18 +13,15 @@ public class SolutionTest {
 
   static Stream<Arguments> source() {
     return Stream.of(
-      Arguments.of("aab", 0),
-      Arguments.of("aaabbbcc", 2),
-      Arguments.of("ceabaacb", 2),
-      Arguments.of("abcabc", 3),
-      Arguments.of("bbcebab", 2),
-      Arguments.of("accdcdadddbaadbc", 1)
+      Arguments.of("GGLLGG", true),
+      Arguments.of("GG", false),
+      Arguments.of("GL", true)
     );
   }
 
   @ParameterizedTest
   @MethodSource("source")
-  public void minDeletions(final String input, final int expected) {
-    Assertions.assertEquals(expected, this.solution.minDeletions(input));
+  public void isRobotBounded(final String input, final boolean expected) {
+    Assertions.assertEquals(expected, this.solution.isRobotBounded(input));
   }
 }
