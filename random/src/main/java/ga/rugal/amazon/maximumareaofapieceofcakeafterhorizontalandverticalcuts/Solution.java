@@ -25,6 +25,6 @@ public class Solution {
                      final int[] horizontalCuts,
                      final int[] verticalCuts) {
     // don't forget to modulo this special number as the result can be huge
-    return (int) ((this.max(h, horizontalCuts) * this.max(w, verticalCuts)) % 1000000007);
+    return (int) (this.max(h, horizontalCuts) * this.max(w, verticalCuts) % 1000000007);
   }
 }
