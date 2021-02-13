@@ -1,7 +1,7 @@
 package ga.rugal.amazon.storageoptimization;
 
-import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -10,6 +10,10 @@ import java.util.Set;
  * @author Rugal Bernstein
  */
 public class Solution {
+
+  public static long storage(int n, int m, List<Integer> h, List<Integer> v) {
+    return 0;
+  }
 
   private int max(final int length, final int[] reserve) {
     final Set<Integer> set = new HashSet<>(length);
@@ -23,7 +27,6 @@ public class Solution {
       .mapToInt(Integer::intValue)
       .toArray();
 
-    Arrays.sort(cuts);
     if (cuts.length < 1) {
       return length;
     }
