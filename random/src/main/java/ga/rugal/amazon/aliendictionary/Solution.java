@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * https://leetcode.com/problems/alien-dictionary
+ * https://leetcode.com/problems/alien-dictionary<BR>
+ * https://www.lintcode.com/problem/alien-dictionaryeasy
  *
  * @author rugal
  */
@@ -41,7 +42,7 @@ public class Solution {
       char[] word2 = words[i].toCharArray();
       int j = 0;
 
-      for (; j < word1.length && j < word2.length && word1[j] == word2[j]; ++j);
+      for (; j < word1.length && j < word2.length && word1[j] == word2[j]; ++j) ;
 
       if (j >= word1.length || j >= word2.length) {
         continue;
