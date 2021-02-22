@@ -38,14 +38,16 @@ public class Solution {
     // Sort the intervals by start time
     Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
 
-    // Add the first meeting
+    // Add the first meeting, record the end time of meeting
     allocator.add(intervals[0][1]);
 
     // Iterate over remaining intervals
     for (int i = 1; i < intervals.length; i++) {
-      //keep checking the if the top meeting room is freed. If not, we have to push the current one into heap
+      // keep checking if the top meeting room is freed. If not, we have to push the current one into heap
       // If the room due to free up the earliest is free, assign that room to this meeting.
       if (intervals[i][0] >= allocator.peek()) {
+        // if new meeting starts after the the earliest meeting ends
+        // the earliest meeting will not block any one after this meeting anymore
         allocator.poll();
       }
 
