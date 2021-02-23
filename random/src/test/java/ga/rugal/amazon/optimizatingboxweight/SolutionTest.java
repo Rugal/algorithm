@@ -13,7 +13,7 @@ public class SolutionTest {
 
   static Stream<Arguments> source() {
     return Stream.of(
-//      Arguments.of(new int[]{5, 3, 2, 4, 1, 2}, new int[]{4, 5}),
+      Arguments.of(new int[]{5, 3, 2, 4, 1, 2}, new int[]{4, 5}),
       Arguments.of(new int[]{1, 1, 2, 1}, new int[]{1, 2}),
       Arguments.of(new int[]{1, 2, 5, 8, 4}, new int[]{5, 8})
     );

@@ -15,7 +15,7 @@ public class Solution {
   /**
    * @param intervals: an array of meeting time intervals
    *
-   * @return: the minimum number of conference rooms required
+   * @return the minimum number of conference rooms required
    */
   public int minMeetingRooms(final List<Interval> intervals) {
     final List<Integer[]> list = new ArrayList<>();
