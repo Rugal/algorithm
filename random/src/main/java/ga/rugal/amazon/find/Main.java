@@ -1,18 +1,3 @@
-/*
- * Copyright 2019 rugal.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package ga.rugal.amazon.find;
 
 import java.io.FileNotFoundException;
@@ -33,16 +18,16 @@ import java.util.HashMap;
 import java.util.Stack;
 import java.util.Map;
 
-// 需要通过命令行提供参数，可以先打包成jar文件然后通过命令行执行
-// 例如：
-// java -jar find.jar . -name data.txt
-// java -jar find.jar . -name \*.txt
-// java -jar find.jar /Some/Path -maxdepth 3 -name \*.h -or -name \*.cpp
-// java -jar find.jar /Some/Path \( -name \*.h -or -name \*.cpp \) -and -size +100K
 /**
- * https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=431401
+ * 需要通过命令行提供参数，可以先打包成jar文件然后通过命令行执行<BR>
+ * 例如：<BR>
+ * java -jar find.jar . -name data.txt<BR>
+ * java -jar find.jar . -name \*.txt<BR>
+ * java -jar find.jar /Some/Path -maxdepth 3 -name \*.h -or -name \*.cpp<BR>
+ * java -jar find.jar /Some/Path \( -name \*.h -or -name \*.cpp \) -and -size +100K<BR>
  *
- * @author rugal
+ * https://www.1point3acres.com/bbs/thread-431401-1-1.html
+ *
  */
 public class Main {
 
@@ -221,7 +206,7 @@ class ExecutionGenerator {
   // 给定输入参数，生成执行器
   // 这里包含了一个简易的LL(1) recursive descent parser
   public Executor generateExecutor(String[] args) {
-    tokens = new Stack<>();
+    tokens = new Stack<String>();
     for (int i = args.length - 1; i >= 0; --i) {
       tokens.push(args[i]);
     }
@@ -403,7 +388,6 @@ abstract class Action extends PlanNode {
   public void initialize() {
   }
 
-  @Override
   public void finalize() {
   }
 
