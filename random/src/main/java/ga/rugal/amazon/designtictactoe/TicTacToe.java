@@ -1,18 +1,3 @@
-/*
- * Copyright 2019 rugalbernstein.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package ga.rugal.amazon.designtictactoe;
 
 /**
@@ -22,6 +7,8 @@ package ga.rugal.amazon.designtictactoe;
  */
 public class TicTacToe {
 
+  private final boolean[][] board;
+
   private final int[] rows;
 
   private final int[] cols;
@@ -30,14 +17,25 @@ public class TicTacToe {
 
   private int antiDiagonal;
 
+  private int count = 0;
+
+  private int xTurn = 1;
+
+  private boolean gameEnd = false;
+
   /**
    * Initialize your data structure here.
    *
    * @param n
    */
   public TicTacToe(final int n) {
-    rows = new int[n];
-    cols = new int[n];
+    this.rows = new int[n];
+    this.cols = new int[n];
+    this.board = new boolean[n][n];
+  }
+
+  public TicTacToe() {
+    this(3);
   }
 
   /**
@@ -52,25 +50,55 @@ public class TicTacToe {
    */
   public int move(final int row, final int col, final int player) {
     int toAdd = player == 1 ? 1 : -1;
+    ++this.count;
 
-    rows[row] += toAdd;
-    cols[col] += toAdd;
+    this.board[row][col] = true;
+
+    this.rows[row] += toAdd;
+    this.cols[col] += toAdd;
     if (row == col) {
-      diagonal += toAdd;
+      this.diagonal += toAdd;
     }
 
-    if (col == (cols.length - row - 1)) {
-      antiDiagonal += toAdd;
+    if (col == (this.cols.length - row - 1)) {
+      this.antiDiagonal += toAdd;
     }
 
-    final int size = rows.length;
-    if (Math.abs(rows[row]) == size
-        || Math.abs(cols[col]) == size
-        || Math.abs(diagonal) == size
-        || Math.abs(antiDiagonal) == size) {
+    final int size = this.rows.length;
+    if (Math.abs(this.rows[row]) == size
+        || Math.abs(this.cols[col]) == size
+        || Math.abs(this.diagonal) == size
+        || Math.abs(this.antiDiagonal) == size) {
       return player;
     }
 
     return 0;
   }
+
+  public boolean move(final int row, final int col) throws AlreadyTakenException, GameEndException {
+    if (this.gameEnd) {
+      throw new GameEndException();
+    }
+    if (this.board[row][col]) {
+      throw new AlreadyTakenException();
+    }
+    final int result = this.move(row, col, this.xTurn);
+    if (0 != result) {
+      this.gameEnd = true;
+      return true;
+    }
+    if (this.count >= 9) {
+      System.out.println("it's a draw");
+    }
+    this.xTurn *= -1;
+    return false;
+  }
+}
+
+class AlreadyTakenException extends Exception {
+
+}
+
+class GameEndException extends Exception {
+
 }
