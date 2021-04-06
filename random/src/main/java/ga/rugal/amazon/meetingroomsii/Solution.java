@@ -1,18 +1,3 @@
-/*
- * Copyright 2019 rugal.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package ga.rugal.amazon.meetingroomsii;
 
 import java.util.Arrays;
@@ -25,7 +10,11 @@ import java.util.PriorityQueue;
  */
 public class Solution {
 
-  public int minMeetingRooms(int[][] intervals) {
+  public int minMeetingRooms(final int[][] intervals) {
+    return this.minMeetingRooms_bucketSort(intervals);
+  }
+
+  public int minMeetingRooms_sort(final int[][] intervals) {
 
     // Check for the base case. If there are no intervals, return 0
     if (intervals.length == 0) {
@@ -58,5 +47,32 @@ public class Solution {
 
     // The size of the heap tells us the minimum rooms required for all the meetings.
     return allocator.size();
+  }
+
+  public int minMeetingRooms_bucketSort(final int[][] intervals) {
+    int max = -1;
+    for (int[] interval : intervals) {
+      max = Math.max(max, interval[1]);
+    }
+    final int[] start = new int[max + 1];
+    final int[] stop = new int[max + 1];
+
+    for (int[] interval : intervals) {
+      ++start[interval[0]];
+      --stop[interval[1]];
+    }
+
+    max = 0;
+    int count = 0;
+    for (int i = 0; i < start.length; ++i) {
+      if (0 == start[i] && 0 == stop[i]) {
+        continue;
+      }
+      count += start[i];
+      max = Math.max(max, count);
+      count += stop[i];
+    }
+
+    return max;
   }
 }
