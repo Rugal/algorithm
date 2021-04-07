@@ -16,20 +16,20 @@ public class Solution {
     return this.result;
   }
 
-  private boolean test(final TreeNode current, final TreeNode p, final TreeNode q) {
-    if (null == current) {
+  private boolean test(final TreeNode root, final TreeNode p, final TreeNode q) {
+    if (null == root) {
       return false;
     }
     // if any node is the current node
-    final int mid = (p == current || q == current) ? 1 : 0;
+    final int mid = (p == root || q == root) ? 1 : 0;
     // if any node is at left tree
-    final int left = this.test(current.left, p, q) ? 1 : 0;
+    final int left = this.test(root.left, p, q) ? 1 : 0;
     // if any node is at right tree
-    final int right = this.test(current.right, p, q) ? 1 : 0;
+    final int right = this.test(root.right, p, q) ? 1 : 0;
     final int count = mid + left + right;
-    if (count >= 2) {
-      // if both node root at current node
-      this.result = current;
+    if (count > 1) {
+      // if more than 1 node occurred here
+      this.result = root;
     }
     return count > 0;
   }
