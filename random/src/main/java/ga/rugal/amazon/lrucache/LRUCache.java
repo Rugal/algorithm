@@ -1,6 +1,7 @@
 package ga.rugal.amazon.lrucache;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -11,7 +12,9 @@ import java.util.Map;
 public class LRUCache {
 
   private final int capacity;
+
   private final Map<Integer, Node> map;
+
   private final DoubleLinkedList list;
 
   public LRUCache(final int capacity) {
@@ -24,13 +27,16 @@ public class LRUCache {
    * Get value by key if exists, otherwise return -1. Move key to the head.
    *
    * @param key target
+   *
    * @return value
    */
   public int get(final int key) {
+    // try to find item
     final Node n = this.map.get(key);
     if (null == n) {
       return -1;
     }
+    // move this item to head
     this.list.remove(n);
     this.list.addFirst(n);
     return n.value;
@@ -38,31 +44,39 @@ public class LRUCache {
 
   /**
    * Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache.
-   * If the number of keys exceeds the capacity from this operation, evict the least recently used key.
+   * If the number of keys exceeds the capacity from this operation, evict the least recently used
+   * key.
    *
    * @param key   key
    * @param value value
    */
   public void put(final int key, final int value) {
+    // try to find item
     final Node n = this.map.get(key);
+    // update if it does exist
     if (null != n) {
       n.value = value;
       this.list.remove(n);
       this.list.addFirst(n);
       return;
     }
+    // move it to head
     this.list.addFirst(new Node(key, value));
     this.map.put(key, this.list.head);
+    // remove LRU item
     if (this.list.size > this.capacity) {
-      final Node node = this.list.removeLast();
-      this.map.remove(node.key);
+      this.map.remove(this.list.removeLast().key);
     }
   }
 
   class Node {
+
     private int key;
+
     private int value;
+
     private Node next;
+
     private Node prev;
 
     public Node(final int key, final int value) {
@@ -72,8 +86,11 @@ public class LRUCache {
   }
 
   class DoubleLinkedList {
+
     private Node head;
+
     private Node tail;
+
     private int size = 0;
 
     public boolean isEmpty() {
@@ -133,6 +150,37 @@ public class LRUCache {
       n.next.prev = n.prev;
       n.prev = n.next = null;
       --this.size;
+    }
+  }
+}
+
+class LRUCacheQuick {
+
+  private final int capacity;
+
+  private final Map<Integer, Integer> map;
+
+  public LRUCacheQuick(final int capacity) {
+    this.capacity = capacity;
+    map = new LinkedHashMap<>();
+  }
+
+  public int get(final int key) {
+    final Integer val = map.get(key);
+    if (val == null) {
+      return -1;
+    }
+    map.remove(key);
+    map.put(key, val);
+    return val;
+  }
+
+  public void put(final int key, final int value) {
+    map.remove(key);
+    map.put(key, value);
+    if (map.size() > this.capacity) {
+      final Integer k = map.keySet().iterator().next();
+      map.remove(k);
     }
   }
 }

@@ -12,3 +12,4 @@ nb-configuration.xml
 *.iml
 .DS_Store
 /leetcode/nbproject/
+.factorypath
