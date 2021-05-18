@@ -7,8 +7,8 @@ package ga.rugal.leetcode.regularexpressionmatching;
  */
 public class Solution {
 
-  private boolean in(final char value, final char[] target) {
-    return value == target[0] || value == target[1];
+  private boolean in(final char value, final char target) {
+    return value == target || value == '.';
   }
 
   public boolean isMatch(String text, String pattern) {
@@ -21,8 +21,7 @@ public class Solution {
 
     for (int i = text.length(); i >= 0; i--) {
       for (int j = pattern.length() - 1; j >= 0; j--) {
-        final var first_match = i < text.length()
-                            && this.in(pattern.charAt(j), new char[]{text.charAt(i), '.'});
+        final var first_match = i < text.length() && this.in(pattern.charAt(j), text.charAt(i));
         dp[i][j] = (j + 1 < pattern.length() && pattern.charAt(j + 1) == '*')
                    ? dp[i][j + 2] || first_match && dp[i + 1][j]
                    : first_match && dp[i + 1][j + 1];
@@ -35,8 +34,7 @@ public class Solution {
     if (pattern.isEmpty()) {
       return text.isEmpty();
     }
-    final var first_match = (!text.isEmpty()
-                         && this.in(pattern.charAt(0), new char[]{text.charAt(0), '.'}));
+    final var first_match = (!text.isEmpty() && this.in(pattern.charAt(0), text.charAt(0)));
 
     if (pattern.length() >= 2 && pattern.charAt(1) == '*') {
       // if 2nd character is *
