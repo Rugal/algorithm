@@ -6,7 +6,7 @@
   <parent>
     <groupId>ga.rugal</groupId>
     <artifactId>parent</artifactId>
-    <version>1.10.0</version>
+    <version>1.12.0</version>
   </parent>
 
   <artifactId>algorithm</artifactId>
