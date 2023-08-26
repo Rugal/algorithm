@@ -1,5 +1,7 @@
 package ga.rugal.leetcode.sudokusolver
 
+import kotlin.math.min
+
 const val length = 9
 
 class Solution {
